@@ -16,6 +16,7 @@ from Utils import Base, Fasta
 #################################################
 def options():
     parser = optparse.OptionParser('usage: %prog -i "proteins1.fa proteins2.fa ... proteinsN.fa" -l "lab1 lab2 ... labN" -p "1 3 ... 1" -e 1e-5 -s 0.6')
+    parser.add_option('-d', '--dir', dest='wd', help='Working directory', metavar='DIR', default='TmpOrthoMcl')
     parser.add_option('-i', '--filenames', dest='filenames', help='Names of the files of species containing the proteins', metavar='FILES', default='')
     parser.add_option('-l', '--labels', dest='labs', help="Labels for each species", metavar='LABELS', default='')
     parser.add_option('-p', '--positions', dest='positions', help="Default positions of unique identifier in FASTA header separated by |. Default position is 1 for all.", metavar='POSITIONS', default='')
@@ -28,7 +29,7 @@ def options():
     if options.filenames == '' or options.labs == '':
         parser.print_help()
         print '\nE.g.: orthoMcl -i "proteome1.fa proteome2.fa" -l "Tax Tvi" -p "4 4" -e 1e-5 -s 0.5'
-        print "Results will be found in TmpOrthoMcl directory in groups.txt file."
+        print "Results will be found in %s/Results directory in groups.txt file." %options.wd
         print "Note! The labels must be exactly 3 characters long and preferrably start with an upper case character."
         sys.exit(-1)
     return options
@@ -95,9 +96,9 @@ def createMySqlScripts(wd, userName):
     '''
     '''
     handle = open("%s/createDb.sql" %wd, 'w')
+    handle.write("CREATE USER IF NOT EXISTS 'ortho%s'@'localhost' IDENTIFIED BY 'password';\n" %userName)
     handle.write("CREATE DATABASE ortho%s;\n" %userName)
-    handle.write("GRANT SELECT,INSERT,UPDATE,DELETE,CREATE VIEW,CREATE, INDEX, DROP on ortho%s.* TO ortho%s@localhost;\n" %(userName, userName))
-    handle.write("set password for ortho%s@localhost = password('password');\n" %userName)
+    handle.write("GRANT SELECT,INSERT,UPDATE,DELETE,CREATE VIEW,CREATE,INDEX,DROP on ortho%s.* TO ortho%s@localhost;\n" %(userName, userName))
     handle.close()
     handle = open("%s/dropDb.sql" %wd, 'w')
     handle.write("drop database if exists ortho%s;\n" %userName)
@@ -148,7 +149,7 @@ def main():
             sys.exit(-1)
 
     base = Base()
-    wd = "TmpOrthoMcl"
+    wd = "%s/Results" %opts.wd
     wdFasta = "%s/Fasta" %wd
     wdAdds = "%s/Adds" %wd
     base.createDir(wd)
@@ -186,12 +187,13 @@ def main():
     # Blast all against all
     if opts.skipBlast == False:
         base.shell("makeblastdb -in goodProteins.fasta -dbtype prot")
+        base.shell("cp goodProteins.fasta %s/" %wd)
     blastEvalue = eValue
     if float(blastEvalue) < 1e-5: blastEvalue = "1e-5"
     if opts.skipBlast == False:
-        base.shell("blastp -db goodProteins.fasta -query goodProteins.fasta -outfmt 6 -evalue %s -num_threads %d > goodProteins.blast" %(blastEvalue, pCnt))
-    base.shell("""awk '{if ($11<=%s) print $0}' goodProteins.blast | grep -v "^#" > %s/filtered.blast""" %(eValue, wd))
-    base.shell("mv -f goodProteins.* %s" %wd)
+        base.shell("blastp -db goodProteins.fasta -query goodProteins.fasta -outfmt 6 -evalue %s -num_threads %d > %s/goodProteins.blast" %(blastEvalue, pCnt, wd))
+    base.shell("""awk '{if ($11<=%s) print $0}' %s/goodProteins.blast | grep -v "^#" > %s/filtered.blast""" %(eValue, wd, wd))
+    #base.shell("mv -f goodProteins.* %s" %wd)
 
     base.shell("orthomclBlastParser %s/filtered.blast %s > %s/similarSequences.txt" %(wd, wdFasta, wd))
     # Prepare database
