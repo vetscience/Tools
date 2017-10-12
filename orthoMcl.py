@@ -16,7 +16,7 @@ from Utils import Base, Fasta
 #################################################
 def options():
     parser = optparse.OptionParser('usage: %prog -i "proteins1.fa proteins2.fa ... proteinsN.fa" -l "lab1 lab2 ... labN" -p "1 3 ... 1" -e 1e-5 -s 0.6')
-    parser.add_option('-p', '--ipaddress', dest='ipaddress', help="IP adress of mysql node.", metavar='IPADDRESS', default='')
+    parser.add_option('-r', '--ipaddress', dest='ipaddress', help="IP adress of mysql node.", metavar='IPADDRESS', default='')
     parser.add_option('-d', '--dir', dest='wd', help='Working directory', metavar='DIR', default='TmpOrthoMcl')
     parser.add_option('-i', '--filenames', dest='filenames', help='Names of the files of species containing the proteins', metavar='FILES', default='')
     parser.add_option('-l', '--labels', dest='labs', help="Labels for each species", metavar='LABELS', default='')
