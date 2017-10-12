@@ -16,6 +16,7 @@ from Utils import Base, Fasta
 #################################################
 def options():
     parser = optparse.OptionParser('usage: %prog -i "proteins1.fa proteins2.fa ... proteinsN.fa" -l "lab1 lab2 ... labN" -p "1 3 ... 1" -e 1e-5 -s 0.6')
+    parser.add_option('-p', '--ipaddress', dest='ipaddress', help="IP adress of mysql node.", metavar='IPADDRESS', default='')
     parser.add_option('-d', '--dir', dest='wd', help='Working directory', metavar='DIR', default='TmpOrthoMcl')
     parser.add_option('-i', '--filenames', dest='filenames', help='Names of the files of species containing the proteins', metavar='FILES', default='')
     parser.add_option('-l', '--labels', dest='labs', help="Labels for each species", metavar='LABELS', default='')
@@ -199,8 +200,8 @@ def main():
 
     base.shell("orthomclBlastParser %s/filtered.blast %s > %s/similarSequences.txt" %(wd, wdFasta, wd))
     # Prepare database
-    base.shell("mysql --user=root --password=password < %s/dropDb.sql" %wd)
-    base.shell("mysql --user=root --password=password < %s/createDb.sql" %wd)
+    base.shell("mysql -h %s -P 3306 --prototol=tcp --user=root --password=password < %s/dropDb.sql" %(opts.ipaddress, wd))
+    base.shell("mysql -h %s -P 3306 --prototol=tcp --user=root --password=password < %s/createDb.sql" %(opts.ipaddress, wd))
     base.shell("orthomclInstallSchema %s/orthomcl.config" %wd)
     base.shell("orthomclLoadBlast %s/orthomcl.config %s/similarSequences.txt" %(wd, wd))
     # Identify potential orthologs
