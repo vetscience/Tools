@@ -156,9 +156,11 @@ def main():
     logHandle = open("%s/log.txt" %wd, 'w')
     base.setLogHandle(logHandle)
     base.createDir(wdFasta)
-    userName = getpass.getuser()
-    createOrthoMclConfigFile(wd, userName, eValue, similarity)
-    createMySqlScripts(wd, userName)
+    #userName = getpass.getuser()
+    #createOrthoMclConfigFile(wd, userName, eValue, similarity)
+    #createMySqlScripts(wd, userName)
+    createOrthoMclConfigFile(wd, "root", eValue, similarity)
+    createMySqlScripts(wd, "root")
 
     requiredMolType = "amino acids"
     for myFile in files:
