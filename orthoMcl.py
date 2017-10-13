@@ -77,7 +77,8 @@ def createOrthoMclConfigFile(wd, userName, eValue, similarity):
     handle.write("# this config assumes a mysql database named 'orthomcl'.  adjust according\n")
     handle.write("# to your situation.\n")
     handle.write("dbVendor=mysql\n")
-    handle.write("dbConnectString=dbi:mysql:ortho%s\n" %userName)
+
+    handle.write("dbConnectString=dbi:mysql:database=ortho%s;host=%s;port=3306\n" %(userName, os.environ["MYSQLHOST"]))
     handle.write("dbLogin=ortho%s\n" %userName)
     handle.write("dbPassword=password\n")
     handle.write("similarSequencesTable=SimilarSequences\n")
