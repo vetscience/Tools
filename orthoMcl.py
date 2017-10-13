@@ -97,9 +97,9 @@ def createMySqlScripts(wd, userName):
     '''
     '''
     handle = open("%s/createDb.sql" %wd, 'w')
-    handle.write("CREATE USER IF NOT EXISTS 'ortho%s'@'localhost' IDENTIFIED BY 'password';\n" %userName)
+    handle.write("CREATE USER IF NOT EXISTS 'ortho%s'@'%s' IDENTIFIED BY 'password';\n" %(userName, os.environ["MYSQLHOST"]))
     handle.write("CREATE DATABASE ortho%s;\n" %userName)
-    handle.write("GRANT SELECT,INSERT,UPDATE,DELETE,CREATE VIEW,CREATE,INDEX,DROP on ortho%s.* TO ortho%s@localhost;\n" %(userName, userName))
+    handle.write("GRANT SELECT,INSERT,UPDATE,DELETE,CREATE VIEW,CREATE,INDEX,DROP on ortho%s.* TO ortho%s@%s;\n" %(userName, userName, os.environ["MYSQLHOST"]))
     handle.close()
     handle = open("%s/dropDb.sql" %wd, 'w')
     handle.write("drop database if exists ortho%s;\n" %userName)
