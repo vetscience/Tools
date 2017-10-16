@@ -150,12 +150,11 @@ def main():
             sys.exit(-1)
 
     base = Base()
-    wd = "%s/Results" %opts.wd
+    wd = "Results" %opts.wd
+    #wd = "%s/Results" %opts.wd
     wdFasta = "%s/Fasta" %wd
-    wdAdds = "%s/Adds" %wd
     base.createDir(wd)
-    #logHandle = open("%s/log.txt" %wd, 'w')
-    logHandle = open("log.txt", 'w')
+    logHandle = open("%s/log.txt" %wd, 'w')
     base.setLogHandle(logHandle)
     base.createDir(wdFasta)
     #userName = getpass.getuser()
