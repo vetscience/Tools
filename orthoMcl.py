@@ -150,7 +150,7 @@ def main():
             sys.exit(-1)
 
     base = Base()
-    wd = "Results" %opts.wd
+    wd = "Results"
     #wd = "%s/Results" %opts.wd
     wdFasta = "%s/Fasta" %wd
     base.createDir(wd)
