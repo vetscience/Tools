@@ -154,7 +154,8 @@ def main():
     wdFasta = "%s/Fasta" %wd
     wdAdds = "%s/Adds" %wd
     base.createDir(wd)
-    logHandle = open("%s/log.txt" %wd, 'w')
+    #logHandle = open("%s/log.txt" %wd, 'w')
+    logHandle = open("log.txt" %wd, 'w')
     base.setLogHandle(logHandle)
     base.createDir(wdFasta)
     #userName = getpass.getuser()
