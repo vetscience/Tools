@@ -201,8 +201,8 @@ def main():
 
     base.shell("orthomclBlastParser %s/filtered.blast %s > %s/similarSequences.txt" %(wd, wdFasta, wd))
     # Prepare database
-    base.shell("mysql -h %s -P 3306 --protocol tcp --user=root --password=password < %s/dropDb.sql" %(opts.mysqlip, wd))
-    base.shell("mysql -h %s -P 3306 --protocol tcp --user=root --password=password < %s/createDb.sql" %(opts.mysqlip, wd))
+    base.shell("mysql -h %s -P 3306 --protocol tcp --user=root --password=password < %s/dropDb.sql" %(opts.ip, wd))
+    base.shell("mysql -h %s -P 3306 --protocol tcp --user=root --password=password < %s/createDb.sql" %(opts.ip, wd))
     base.shell("orthomclInstallSchema %s/orthomcl.config" %wd)
     base.shell("orthomclLoadBlast %s/orthomcl.config %s/similarSequences.txt" %(wd, wd))
     # Identify potential orthologs
