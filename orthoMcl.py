@@ -123,7 +123,7 @@ def main():
     eValue = opts.evalue
     similarity = opts.sim
     minlen = opts.minlen
-    files = opts.filenames.strip().split(',')
+    files = ["%s/%s" %(opts.wd.strip('"').strip("'").strip('/'), myFile) for myFile in opts.filenames.strip().split(',')]
     labels = opts.labs.strip().split(',')
     if len(labels) != len(set(labels)):
         print >> sys.stderr, "### Fatal error: duplicate labels found. Exiting..."
@@ -151,7 +151,6 @@ def main():
 
     base = Base()
     wd = "Results"
-    #wd = "%s/Results" %opts.wd
     wdFasta = "%s/Fasta" %wd
     base.createDir(wd)
     logHandle = open("%s/log.txt" %wd, 'w')
