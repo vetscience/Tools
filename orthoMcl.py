@@ -16,6 +16,7 @@ from Utils import Base, Fasta
 #################################################
 def options():
     parser = optparse.OptionParser('usage: %prog -i "proteins1.fa proteins2.fa ... proteinsN.fa" -l "lab1 lab2 ... labN" -p "1 3 ... 1" -e 1e-5 -s 0.6')
+    parser.add_option('-a', '--ip', dest='ip', help='MySql server IP address', metavar='IPADDRESS', default='')
     parser.add_option('-d', '--dir', dest='wd', help='Working directory', metavar='DIR', default='TmpOrthoMcl')
     parser.add_option('-i', '--filenames', dest='filenames', help='Names of the files of species containing the proteins (separated by commas)', metavar='FILES', default='')
     parser.add_option('-l', '--labels', dest='labs', help="Labels for each species (separated by commas)", metavar='LABELS', default='')
@@ -68,7 +69,7 @@ def checkUniqueIds(fastaFile):
 
 
 #################################################
-def createOrthoMclConfigFile(wd, userName, eValue, similarity):
+def createOrthoMclConfigFile(wd, userName, eValue, similarity, mySqlIpAddress):
     '''
     '''
     eValue = eValue.split('e')[1]
@@ -78,7 +79,8 @@ def createOrthoMclConfigFile(wd, userName, eValue, similarity):
     handle.write("# to your situation.\n")
     handle.write("dbVendor=mysql\n")
 
-    handle.write("dbConnectString=dbi:mysql:database=ortho%s;host=%s;port=3306\n" %(userName, os.environ["MYSQLHOST"]))
+    #handle.write("dbConnectString=dbi:mysql:database=ortho%s;host=%s;port=3306\n" %(userName, os.environ["MYSQLHOST"]))
+    handle.write("dbConnectString=dbi:mysql:database=ortho%s;host=%s;port=3306\n" %(userName, mySqlIpAddress))
     handle.write("dbLogin=ortho%s\n" %userName)
     handle.write("dbPassword=password\n")
     handle.write("similarSequencesTable=SimilarSequences\n")
@@ -159,7 +161,7 @@ def main():
     #userName = getpass.getuser()
     #createOrthoMclConfigFile(wd, userName, eValue, similarity)
     #createMySqlScripts(wd, userName)
-    createOrthoMclConfigFile(wd, "root", eValue, similarity)
+    createOrthoMclConfigFile(wd, "root", eValue, similarity, opts.ip)
     createMySqlScripts(wd, "root")
 
     requiredMolType = "amino acids"
@@ -199,8 +201,8 @@ def main():
 
     base.shell("orthomclBlastParser %s/filtered.blast %s > %s/similarSequences.txt" %(wd, wdFasta, wd))
     # Prepare database
-    base.shell("mysql --user=root --password=password < %s/dropDb.sql" %wd)
-    base.shell("mysql --user=root --password=password < %s/createDb.sql" %wd)
+    base.shell("mysql -h %s -P 3306 --protocol tcp --user=root --password=password < %s/dropDb.sql" %(opts.mysqlip, wd))
+    base.shell("mysql -h %s -P 3306 --protocol tcp --user=root --password=password < %s/createDb.sql" %(opts.mysqlip, wd))
     base.shell("orthomclInstallSchema %s/orthomcl.config" %wd)
     base.shell("orthomclLoadBlast %s/orthomcl.config %s/similarSequences.txt" %(wd, wd))
     # Identify potential orthologs
