@@ -37,20 +37,25 @@ def options():
     return options
 
 #################################################
-def checkMySqlVersion():
+def checkMySqlVersion(wd, mySqlIpAddress):
     '''
     '''
     base = Base()
-    mySqlVer = base.shell("mysql -V", myStdout = True)
+    with open("%s/version.sql" %wd, 'w') as handle:
+        handle.write('SHOW VARIABLES LIKE "%version%";\n')
+    mySqlVer = base.shell("mysql -h %s -P3306 --protocol tcp --user=root --password=password < %s/version.sql" %(mySqlIpAddress, wd), myStdout = True)
+    verStr = ""
+    found = False
     for line in mySqlVer.stdout:
         items = line.strip().split()
         for i in xrange(len(items)):
-            if "Distrib" in items[i]:
+            if "inno" in items[i]:
                 try:
-                    verStr = items[i+1].strip(',')
+                    verStr = items[i+1].strip()
+                    found = True
                 except IndexError:
                     break
-        break
+        if found == True: break
     try:
         verList = [int(item) for item in verStr.split('.')]
     except ValueError:
@@ -199,7 +204,7 @@ def main():
     #userName = getpass.getuser()
     #createOrthoMclConfigFile(wd, userName, eValue, similarity)
     #createMySqlScripts(wd, userName)
-    verList = checkMySqlVersion()
+    verList = checkMySqlVersion(wd, opts.ip)
     createOrthoMclConfigFile(wd, "root", eValue, similarity, opts.ip)
     createMySqlScripts(wd, "root", verList)
 
