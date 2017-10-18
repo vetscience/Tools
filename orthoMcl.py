@@ -16,7 +16,7 @@ from Utils import Base, Fasta
 #################################################
 def options():
     parser = optparse.OptionParser('usage: %prog -i "proteins1.fa proteins2.fa ... proteinsN.fa" -l "lab1 lab2 ... labN" -p "1 3 ... 1" -e 1e-5 -s 0.6')
-    parser.add_option('-a', '--ip', dest='ip', help='MySql server IP address', metavar='IPADDRESS', default='')
+    parser.add_option('-a', '--ip', dest='ip', help='MySql server IP address', metavar='IPADDRESS', default='127.0.0.1')
     parser.add_option('-d', '--dir', dest='wd', help='Working directory', metavar='DIR', default='TmpOrthoMcl')
     parser.add_option('-i', '--filenames', dest='filenames', help='Names of the files of species containing the proteins (separated by commas)', metavar='FILES', default='')
     parser.add_option('-l', '--labels', dest='labs', help="Labels for each species (separated by commas)", metavar='LABELS', default='')
@@ -26,6 +26,7 @@ def options():
     parser.add_option('-s', '--similarity', dest='sim', help="Required similarity (0 .. 1). Default if 0.5", metavar='SIM', default='0.5')
     parser.add_option('-m', '--minlen', dest='minlen', help="Allowed minimum lenght of a protein. Default is 20.", metavar='MINLEN', default='20')
     parser.add_option('-b', '--noblast', dest='skipBlast', action='store_true', help="Skip BLAST", default=False)
+    parser.add_option('-n', '--nucl', dest='nucl', action='store_true', help="Analyse nucleotides instead of proteins", default=False)
     options, args = parser.parse_args()
     if options.filenames == '' or options.labs == '':
         parser.print_help()
@@ -99,9 +100,10 @@ def createMySqlScripts(wd, userName):
     '''
     '''
     handle = open("%s/createDb.sql" %wd, 'w')
-    handle.write("CREATE USER IF NOT EXISTS 'ortho%s'@'%%' IDENTIFIED BY 'password';\n" %userName)
+    #handle.write("CREATE USER IF NOT EXISTS 'ortho%s'@'%%' IDENTIFIED BY 'password';\n" %userName)
     handle.write("CREATE DATABASE ortho%s;\n" %userName)
-    handle.write("GRANT SELECT,INSERT,UPDATE,DELETE,CREATE VIEW,CREATE,INDEX,DROP on ortho%s.* TO 'ortho%s'@'%%';\n" %(userName, userName))
+    #handle.write("GRANT SELECT,INSERT,UPDATE,DELETE,CREATE VIEW,CREATE,INDEX,DROP on ortho%s.* TO 'ortho%s'@'%%';\n" %(userName, userName))
+    handle.write("GRANT ALL PRIVILEGES ON ortho%s.* TO 'ortho%s'@'%%';\n" %(userName, userName))
     handle.close()
     handle = open("%s/dropDb.sql" %wd, 'w')
     handle.write("drop database if exists ortho%s;\n" %userName)
@@ -154,6 +156,7 @@ def main():
     base = Base()
     wd = "Results"
     wdFasta = "%s/Fasta" %wd
+    base.shell("rm -rf Results")
     base.createDir(wd)
     logHandle = open("%s/log.txt" %wd, 'w')
     base.setLogHandle(logHandle)
@@ -165,10 +168,12 @@ def main():
     createMySqlScripts(wd, "root")
 
     requiredMolType = "amino acids"
+    if opts.nucl == True:
+        requiredMolType = "nucleotides"
     for myFile in files:
         molType = checkResidue(myFile)
         if requiredMolType != molType:
-            print >> sys.stderr, "### Fatal error: files have to all be amino acids. Exiting..."
+            print >> sys.stderr, "### Fatal error: files have to all be %s. Exiting..." %requiredMolType
             print >> sys.stderr, "### File %s failed and was %s." %(myFile, molType)
             sys.exit(-1)
 
@@ -190,14 +195,20 @@ def main():
 
     # Blast all against all
     if opts.skipBlast == False:
-        base.shell("makeblastdb -in goodProteins.fasta -dbtype prot")
+        if opts.nucl == False:
+            base.shell("makeblastdb -in goodProteins.fasta -dbtype prot")
+        else:
+            base.shell("makeblastdb -in goodProteins.fasta -dbtype nucl")
         base.shell("cp goodProteins.fasta %s/" %wd)
     blastEvalue = eValue
     if float(blastEvalue) < 1e-5: blastEvalue = "1e-5"
     if opts.skipBlast == False:
-        base.shell("blastp -db goodProteins.fasta -query goodProteins.fasta -outfmt 6 -evalue %s -num_threads %d > %s/goodProteins.blast" %(blastEvalue, pCnt, wd))
+        if opts.nucl == False:
+            base.shell("blastp -db goodProteins.fasta -query goodProteins.fasta -outfmt 6 -evalue %s -num_threads %d > %s/goodProteins.blast" %(blastEvalue, pCnt, wd))
+        else:
+            base.shell("blastn -db goodProteins.fasta -query goodProteins.fasta -outfmt 6 -evalue %s -num_threads %d > %s/goodProteins.blast" %(blastEvalue, pCnt, wd))
     base.shell("""awk '{if ($11<=%s) print $0}' %s/goodProteins.blast | grep -v "^#" > %s/filtered.blast""" %(eValue, wd, wd))
-    #base.shell("mv -f goodProteins.* %s" %wd)
+    base.shell("mv -f goodProteins.* %s/" %wd)
 
     base.shell("orthomclBlastParser %s/filtered.blast %s > %s/similarSequences.txt" %(wd, wdFasta, wd))
     # Prepare database
