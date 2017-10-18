@@ -1,0 +1,33 @@
+OWN_1: BLI|evm.model.Scaffold212.1 BLI|evm.model.Scaffold350.1 BLI|evm.model.Scaffold267.1 BLI|evm.model.Scaffold343.1 BLI|evm.model.Scaffold578.1 BLI|evm.model.Scaffold2135.1 BLI|evm.model.Scaffold581.1 BLI|evm.model.Scaffold1033.1 BLI|evm.model.Scaffold1138.1 BLI|evm.model.Scaffold1179.1 BLI|evm.model.Scaffold1206.1 BLI|evm.model.Scaffold1256.1 BLI|evm.model.Scaffold547.1 BLI|evm.model.Scaffold1395.1 BLI|evm.model.Scaffold1516.1 BLI|evm.model.Scaffold311.1 BLI|evm.model.Scaffold1419.1 BLI|evm.model.Scaffold1993.1 BLI|evm.model.Scaffold1405.1 BLI|evm.model.Scaffold1436.1 BLI|evm.model.Scaffold1481.1 BLI|evm.model.Scaffold1553.1 BLI|evm.model.Scaffold1648.1 BLI|evm.model.Scaffold597.1
+OWN_2: BLI|evm.model.Scaffold681.1 BLI|evm.model.Scaffold1413.1 BLI|evm.model.Scaffold1158.1 BLI|evm.model.Scaffold237.1 BLI|evm.model.Scaffold373.1 BLI|evm.model.Scaffold126.2 BLI|evm.model.Scaffold661.1 BLI|evm.model.Scaffold1776.1 BLI|evm.model.Scaffold2210.1 BLI|evm.model.Scaffold1822.1 BLI|evm.model.Scaffold1849.1
+OWN_3: BXI|bxinjiang_2107_1s BXI|bxinjiang_939_1s BXI|bxinjiang_335_1s BXI|bxinjiang_2343_1s BXI|bxinjiang_1517_1s BXI|bxinjiang_1265_1s BXI|bxinjiang_2566_1s
+OWN_4: BLI|evm.model.Scaffold1501.1 BLI|evm.model.Scaffold1726.1 BLI|evm.model.Scaffold1208.1 BLI|evm.model.Scaffold631.1 BLI|evm.model.Scaffold2234.1
+OWN_5: BLI|evm.model.Scaffold1165.1 BLI|evm.model.Scaffold607.1 BLI|evm.model.Scaffold1270.1 BLI|evm.model.Scaffold1911.1
+OWN_6: BLI|evm.model.Scaffold118.3 BLI|evm.model.Scaffold614.1 BLI|evm.model.Scaffold682.1 BLI|evm.model.Scaffold371.2
+OWN_7: BLI|evm.model.Scaffold1309.1 BLI|evm.model.Scaffold1469.1 BLI|evm.model.Scaffold1447.1 BLI|evm.model.Scaffold1429.1
+OWN_8: BLI|evm.model.Scaffold582.1 BLI|evm.model.Scaffold1772.1 BLI|evm.model.Scaffold1811.1 BLI|evm.model.Scaffold1987.1
+OWN_9: BLI|evm.model.Scaffold609.1 BLI|evm.model.Scaffold650.1 BXI|bxinjiang_1476_1s
+OWN_10: BXI|bxinjiang_1028_1s BXI|bxinjiang_1028_2s BXI|bxinjiang_465_1s
+OWN_11: BLI|evm.model.Scaffold1213.1 BLI|evm.model.Scaffold1618.1 BLI|evm.model.Scaffold2122.1
+OWN_12: BLI|evm.model.Scaffold1358.1 BLI|evm.model.Scaffold2112.1 BLI|evm.model.Scaffold2024.1
+OWN_13: BLI|evm.model.Scaffold1396.1 BLI|evm.model.Scaffold322.1 BLI|evm.model.Scaffold1546.1
+OWN_14: BLI|evm.model.Scaffold1520.1 BLI|evm.model.Scaffold1830.1 BLI|evm.model.Scaffold1606.1
+OWN_15: BLI|evm.model.Scaffold1587.1 BLI|evm.model.Scaffold1613.1 BLI|evm.model.Scaffold2084.1
+OWN_16: BXI|bxinjiang_1061_1s BXI|bxinjiang_2542_1s
+OWN_17: BXI|bxinjiang_241_1s BXI|bxinjiang_25_1s
+OWN_18: BXI|bxinjiang_1993_1s BXI|bxinjiang_946_1s
+OWN_19: BXI|bxinjiang_1546_1s BXI|bxinjiang_1934_1s
+OWN_20: BXI|bxinjiang_1724_1s BXI|bxinjiang_2070_1s
+OWN_21: BXI|bxinjiang_2427_1s BXI|bxinjiang_2427_2s
+OWN_22: BXI|bxinjiang_1199_2s BXI|bxinjiang_843_1s
+OWN_23: BXI|bxinjiang_1036_1s BXI|bxinjiang_1036_2s
+OWN_24: BXI|bxinjiang_1210_1s BXI|bxinjiang_1210_2s
+OWN_25: BXI|bxinjiang_1199_1s BXI|bxinjiang_1199_3s
+OWN_26: BLI|evm.model.Scaffold1134.1 BLI|evm.model.Scaffold1608.1
+OWN_27: BLI|evm.model.Scaffold1163.1 BLI|evm.model.Scaffold1607.1
+OWN_28: BLI|evm.model.Scaffold1377.1 BLI|evm.model.Scaffold1445.1
+OWN_29: BLI|evm.model.Scaffold1690.1 BLI|evm.model.Scaffold1762.1
+OWN_30: BLI|evm.model.Scaffold1707.1 BLI|evm.model.Scaffold1846.1
+OWN_31: BLI|evm.model.Scaffold1898.1 BLI|evm.model.Scaffold1944.1
+OWN_32: BLI|evm.model.Scaffold371.1 BLI|evm.model.Scaffold377.1
+OWN_33: BLI|evm.model.Scaffold1373.1 BXI|bxinjiang_1197_1s

@@ -1,0 +1,104 @@
+OWN_1: BXI|bxinjiang_2329_1s BXI|bxinjiang_634_1s BXI|bxinjiang_2289_1s BXI|bxinjiang_1408_1s BXI|bxinjiang_1752_1s
+OWN_2: BXI|bxinjiang_1092_1s BXI|bxinjiang_2206_1s BXI|bxinjiang_1972_1s BXI|bxinjiang_2259_1s BXI|bxinjiang_26_1s
+OWN_3: BXI|bxinjiang_2140_1s BXI|bxinjiang_346_2s BXI|bxinjiang_346_1s BXI|bxinjiang_346_4s BXI|bxinjiang_346_3s
+OWN_4: BXI|bxinjiang_1354_1s BXI|bxinjiang_2257_1s BXI|bxinjiang_322_1s BXI|bxinjiang_496_1s BXI|bxinjiang_1000_1s
+OWN_5: BXI|bxinjiang_436_1s BXI|bxinjiang_990_1s BXI|bxinjiang_166_1s BXI|bxinjiang_2595_1s
+OWN_6: BXI|bxinjiang_1892_1s BXI|bxinjiang_1892_4s BXI|bxinjiang_1892_2s BXI|bxinjiang_1892_3s
+OWN_7: BXI|bxinjiang_308_1s BXI|bxinjiang_480_1s BXI|bxinjiang_1707_1s BXI|bxinjiang_1203_1s
+OWN_8: BXI|bxinjiang_1582_1s BXI|bxinjiang_2174_1s BXI|bxinjiang_362_1s BXI|bxinjiang_967_1s
+OWN_9: BXI|bxinjiang_1088_1s BXI|bxinjiang_243_2s BXI|bxinjiang_2083_1s
+OWN_10: BXI|bxinjiang_1026_1s BXI|bxinjiang_2272_1s BXI|bxinjiang_535_1s
+OWN_11: BXI|bxinjiang_1464_1s BXI|bxinjiang_2328_1s BXI|bxinjiang_1524_1s
+OWN_12: BXI|bxinjiang_645_1s BXI|bxinjiang_87_1s BXI|bxinjiang_1938_1s
+OWN_13: BXI|bxinjiang_2530_1s BXI|bxinjiang_523_1s BXI|bxinjiang_2538_1s
+OWN_14: BXI|bxinjiang_1479_1s BXI|bxinjiang_642_1s BXI|bxinjiang_129_1s
+OWN_15: BXI|bxinjiang_1804_1s BXI|bxinjiang_300_1s BXI|bxinjiang_1331_1s
+OWN_16: BXI|bxinjiang_2348_1s BXI|bxinjiang_466_1s BXI|bxinjiang_2044_1s
+OWN_17: BXI|bxinjiang_1336_1s BXI|bxinjiang_1561_1s BXI|bxinjiang_688_1s
+OWN_18: BXI|bxinjiang_2501_1s BXI|bxinjiang_439_1s BXI|bxinjiang_1018_1s
+OWN_19: BXI|bxinjiang_2110_1s BXI|bxinjiang_2110_3s BXI|bxinjiang_2110_2s
+OWN_20: BXI|bxinjiang_1168_1s BXI|bxinjiang_25_1s BXI|bxinjiang_946_1s
+OWN_21: BXI|bxinjiang_1493_1s BXI|bxinjiang_401_1s BXI|bxinjiang_1185_1s
+OWN_22: BXI|bxinjiang_791_1s BXI|bxinjiang_791_3s BXI|bxinjiang_791_2s
+OWN_23: BXI|bxinjiang_684_1s BXI|bxinjiang_684_2s BXI|bxinjiang_684_3s
+OWN_24: BXI|bxinjiang_1573_1s BXI|bxinjiang_2018_1s BXI|bxinjiang_1005_1s
+OWN_25: BXI|bxinjiang_422_1s BXI|bxinjiang_1352_1s BXI|bxinjiang_869_1s
+OWN_26: BXI|bxinjiang_1803_1s BXI|bxinjiang_1996_1s BXI|bxinjiang_811_1s
+OWN_27: BXI|bxinjiang_1103_1s BXI|bxinjiang_1934_1s BXI|bxinjiang_1049_1s
+OWN_28: BXI|bxinjiang_1323_1s BXI|bxinjiang_1323_3s BXI|bxinjiang_1323_2s
+OWN_29: BXI|bxinjiang_1842_1s BXI|bxinjiang_1842_5s BXI|bxinjiang_1842_3s
+OWN_30: BXI|bxinjiang_721_1s BXI|bxinjiang_721_2s BXI|bxinjiang_721_4s
+OWN_31: BXI|bxinjiang_1409_1s BXI|bxinjiang_1409_2s BXI|bxinjiang_1409_3s
+OWN_32: BXI|bxinjiang_2303_1s BXI|bxinjiang_275_1s BXI|bxinjiang_1194_1s
+OWN_33: BXI|bxinjiang_1363_1s BXI|bxinjiang_1363_3s BXI|bxinjiang_1363_2s
+OWN_34: BXI|bxinjiang_2245_1s BXI|bxinjiang_375_1s
+OWN_35: BXI|bxinjiang_1517_1s BXI|bxinjiang_1662_1s
+OWN_36: BXI|bxinjiang_1835_1s BXI|bxinjiang_846_1s
+OWN_37: BXI|bxinjiang_1265_1s BXI|bxinjiang_598_1s
+OWN_38: BXI|bxinjiang_1834_1s BXI|bxinjiang_268_1s
+OWN_39: BXI|bxinjiang_1762_1s BXI|bxinjiang_179_1s
+OWN_40: BXI|bxinjiang_2427_1s BXI|bxinjiang_2427_2s
+OWN_41: BXI|bxinjiang_1036_1s BXI|bxinjiang_1036_2s
+OWN_42: BXI|bxinjiang_1210_1s BXI|bxinjiang_1210_2s
+OWN_43: BXI|bxinjiang_1199_1s BXI|bxinjiang_1199_3s
+OWN_44: BXI|bxinjiang_1028_1s BXI|bxinjiang_1028_2s
+OWN_45: BXI|bxinjiang_2583_1s BXI|bxinjiang_579_1s
+OWN_46: BXI|bxinjiang_924_1s BXI|bxinjiang_924_2s
+OWN_47: BXI|bxinjiang_1619_1s BXI|bxinjiang_2473_1s
+OWN_48: BXI|bxinjiang_1269_1s BXI|bxinjiang_1608_1s
+OWN_49: BXI|bxinjiang_2091_1s BXI|bxinjiang_2091_2s
+OWN_50: BXI|bxinjiang_2243_1s BXI|bxinjiang_2243_2s
+OWN_51: BXI|bxinjiang_2508_1s BXI|bxinjiang_469_1s
+OWN_52: BXI|bxinjiang_2261_1s BXI|bxinjiang_2261_2s
+OWN_53: BXI|bxinjiang_792_1s BXI|bxinjiang_792_2s
+OWN_54: BXI|bxinjiang_1444_1s BXI|bxinjiang_1444_2s
+OWN_55: BXI|bxinjiang_1489_1s BXI|bxinjiang_1489_2s
+OWN_56: BXI|bxinjiang_2314_1s BXI|bxinjiang_2314_2s
+OWN_57: BXI|bxinjiang_1661_1s BXI|bxinjiang_1661_2s
+OWN_58: BXI|bxinjiang_2159_1s BXI|bxinjiang_844_1s
+OWN_59: BXI|bxinjiang_1080_1s BXI|bxinjiang_883_1s
+OWN_60: BXI|bxinjiang_315_1s BXI|bxinjiang_315_2s
+OWN_61: BXI|bxinjiang_2364_1s BXI|bxinjiang_2364_2s
+OWN_62: BXI|bxinjiang_2478_1s BXI|bxinjiang_2478_2s
+OWN_63: BXI|bxinjiang_1575_1s BXI|bxinjiang_1575_2s
+OWN_64: BXI|bxinjiang_1191_1s BXI|bxinjiang_1191_2s
+OWN_65: BXI|bxinjiang_103_1s BXI|bxinjiang_103_2s
+OWN_66: BXI|bxinjiang_537_1s BXI|bxinjiang_537_2s
+OWN_67: BXI|bxinjiang_2548_1s BXI|bxinjiang_285_1s
+OWN_68: BXI|bxinjiang_970_1s BXI|bxinjiang_970_2s
+OWN_69: BXI|bxinjiang_2453_1s BXI|bxinjiang_2453_2s
+OWN_70: BXI|bxinjiang_565_1s BXI|bxinjiang_632_1s
+OWN_71: BXI|bxinjiang_1606_1s BXI|bxinjiang_1606_2s
+OWN_72: BXI|bxinjiang_2062_1s BXI|bxinjiang_602_1s
+OWN_73: BXI|bxinjiang_1258_1s BXI|bxinjiang_477_1s
+OWN_74: BXI|bxinjiang_1923_1s BXI|bxinjiang_1923_2s
+OWN_75: BXI|bxinjiang_448_1s BXI|bxinjiang_779_1s
+OWN_76: BXI|bxinjiang_2286_1s BXI|bxinjiang_2286_2s
+OWN_77: BXI|bxinjiang_1261_1s BXI|bxinjiang_530_1s
+OWN_78: BXI|bxinjiang_202_1s BXI|bxinjiang_202_2s
+OWN_79: BXI|bxinjiang_1553_1s BXI|bxinjiang_1553_2s
+OWN_80: BXI|bxinjiang_2412_1s BXI|bxinjiang_2412_2s
+OWN_81: BXI|bxinjiang_1045_1s BXI|bxinjiang_757_1s
+OWN_82: BXI|bxinjiang_1566_1s BXI|bxinjiang_1745_1s
+OWN_83: BXI|bxinjiang_911_1s BXI|bxinjiang_911_2s
+OWN_84: BXI|bxinjiang_11_1s BXI|bxinjiang_1927_1s
+OWN_85: BXI|bxinjiang_1756_1s BXI|bxinjiang_2107_1s
+OWN_86: BXI|bxinjiang_1715_1s BXI|bxinjiang_1715_2s
+OWN_87: BXI|bxinjiang_1198_1s BXI|bxinjiang_1795_1s
+OWN_88: BXI|bxinjiang_764_1s BXI|bxinjiang_764_2s
+OWN_89: BXI|bxinjiang_1827_1s BXI|bxinjiang_1827_2s
+OWN_90: BXI|bxinjiang_2126_1s BXI|bxinjiang_2126_2s
+OWN_91: BXI|bxinjiang_2515_1s BXI|bxinjiang_2515_2s
+OWN_92: BXI|bxinjiang_1471_1s BXI|bxinjiang_1546_1s
+OWN_93: BXI|bxinjiang_454_1s BXI|bxinjiang_454_2s
+OWN_94: BXI|bxinjiang_1766_1s BXI|bxinjiang_1766_2s
+OWN_95: BXI|bxinjiang_2332_1s BXI|bxinjiang_2332_2s
+OWN_96: BXI|bxinjiang_1226_1s BXI|bxinjiang_400_1s
+OWN_97: BXI|bxinjiang_1957_1s BXI|bxinjiang_1957_2s
+OWN_98: BXI|bxinjiang_892_1s BXI|bxinjiang_938_1s
+OWN_99: BXI|bxinjiang_2188_1s BXI|bxinjiang_2540_1s
+OWN_100: BXI|bxinjiang_1328_1s BXI|bxinjiang_2021_1s
+OWN_101: BXI|bxinjiang_265_1s BXI|bxinjiang_265_2s
+OWN_102: BXI|bxinjiang_1196_1s BXI|bxinjiang_1196_2s
+OWN_103: BXI|bxinjiang_2408_1s BXI|bxinjiang_2408_2s
+OWN_104: BXI|bxinjiang_1492_1s BXI|bxinjiang_1492_2s
