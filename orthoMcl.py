@@ -36,6 +36,31 @@ def options():
         sys.exit(-1)
     return options
 
+#################################################
+def checkMySqlVersion():
+    '''
+    '''
+    base = Base()
+    mySqlVer = base.shell("mysql -V", myStdout = True)
+    for line in mySqlVer.stdout:
+        items = line.strip().split()
+        for i in xrange(len(items)):
+            if "Distrib" in items[i]:
+                try:
+                    verStr = items[i+1].strip(',')
+                except IndexError:
+                    break
+        break
+    try:
+        verList = [int(item) for item in verStr.split('.')]
+    except ValueError:
+        print >> sys.stderr, "### Fatal error: Could not read mysql version (%s). Exiting..." %verStr
+        sys.exit(-1)
+    if len(verList) != 3:
+        print >> sys.stderr, "### Fatal error: Could not read mysql version (%s). Exiting..." %verStr
+        sys.exit(-1)
+    return verList
+
 
 #################################################
 def checkResidue(fastaFile):
@@ -70,44 +95,54 @@ def checkUniqueIds(fastaFile):
 
 
 #################################################
+def checkIdLen(fastaFile):
+    '''
+    '''
+    fasta = Fasta(fastaFile)
+    for i in xrange(fasta.cnt()):
+        seqId = fasta.headers[i].split()[0]
+        if len(seqId) > 56:
+            print >> sys.stderr, "### Fatal error: FASTA sequence identifier %s is too long in %s. Exiting..." %(seqId, fastaFile)
+            sys.exit(-1)
+
+
+#################################################
 def createOrthoMclConfigFile(wd, userName, eValue, similarity, mySqlIpAddress):
     '''
     '''
     eValue = eValue.split('e')[1]
     similarity = int(float(similarity) * 100.0)
-    handle = open("%s/orthomcl.config" %wd, 'w')
-    handle.write("# this config assumes a mysql database named 'orthomcl'.  adjust according\n")
-    handle.write("# to your situation.\n")
-    handle.write("dbVendor=mysql\n")
-
-    #handle.write("dbConnectString=dbi:mysql:database=ortho%s;host=%s;port=3306\n" %(userName, os.environ["MYSQLHOST"]))
-    handle.write("dbConnectString=dbi:mysql:database=ortho%s;host=%s;port=3306\n" %(userName, mySqlIpAddress))
-    handle.write("dbLogin=ortho%s\n" %userName)
-    handle.write("dbPassword=password\n")
-    handle.write("similarSequencesTable=SimilarSequences\n")
-    handle.write("orthologTable=Ortholog\n")
-    handle.write("inParalogTable=InParalog\n")
-    handle.write("coOrthologTable=CoOrtholog\n")
-    handle.write("interTaxonMatchView=InterTaxonMatch\n")
-    handle.write("percentMatchCutoff=%d\n" %similarity)
-    handle.write("evalueExponentCutoff=%s\n" %eValue)
-    handle.write("oracleIndexTblSpc=NONE\n")
-    handle.close()
+    with open("%s/orthomcl.config" %wd, 'w') as handle:
+        handle.write("# this config assumes a mysql database named 'orthomcl'.  adjust according\n")
+        handle.write("# to your situation.\n")
+        handle.write("dbVendor=mysql\n")
+        #handle.write("dbConnectString=dbi:mysql:database=ortho%s;host=%s;port=3306\n" %(userName, os.environ["MYSQLHOST"]))
+        handle.write("dbConnectString=dbi:mysql:database=ortho%s;host=%s;port=3306\n" %(userName, mySqlIpAddress))
+        handle.write("dbLogin=ortho%s\n" %userName)
+        handle.write("dbPassword=password\n")
+        handle.write("similarSequencesTable=SimilarSequences\n")
+        handle.write("orthologTable=Ortholog\n")
+        handle.write("inParalogTable=InParalog\n")
+        handle.write("coOrthologTable=CoOrtholog\n")
+        handle.write("interTaxonMatchView=InterTaxonMatch\n")
+        handle.write("percentMatchCutoff=%d\n" %similarity)
+        handle.write("evalueExponentCutoff=%s\n" %eValue)
+        handle.write("oracleIndexTblSpc=NONE\n")
 
 
 #################################################
-def createMySqlScripts(wd, userName):
+def createMySqlScripts(wd, userName, ver):
     '''
     '''
-    handle = open("%s/createDb.sql" %wd, 'w')
-    #handle.write("CREATE USER IF NOT EXISTS 'ortho%s'@'%%' IDENTIFIED BY 'password';\n" %userName)
-    handle.write("CREATE DATABASE ortho%s;\n" %userName)
-    #handle.write("GRANT SELECT,INSERT,UPDATE,DELETE,CREATE VIEW,CREATE,INDEX,DROP on ortho%s.* TO 'ortho%s'@'%%';\n" %(userName, userName))
-    handle.write("GRANT ALL PRIVILEGES ON ortho%s.* TO 'ortho%s'@'%%';\n" %(userName, userName))
-    handle.close()
-    handle = open("%s/dropDb.sql" %wd, 'w')
-    handle.write("drop database if exists ortho%s;\n" %userName)
-    handle.close()
+    with open("%s/createDb.sql" %wd, 'w') as handle:
+        if ver[0] > 5 or (ver[0] == 5 and ver[1] > 7) or (ver[0] == 5 and ver[1] == 7 and ver[2] > 5):
+            handle.write("CREATE USER IF NOT EXISTS 'ortho%s'@'%%' IDENTIFIED BY 'password';\n" %userName)
+        handle.write("CREATE DATABASE ortho%s;\n" %userName)
+        #handle.write("GRANT SELECT,INSERT,UPDATE,DELETE,CREATE VIEW,CREATE,INDEX,DROP on ortho%s.* TO 'ortho%s'@'%%';\n" %(userName, userName))
+        handle.write("GRANT ALL PRIVILEGES ON ortho%s.* TO 'ortho%s'@'%%';\n" %(userName, userName))
+        handle.close()
+        handle = open("%s/dropDb.sql" %wd, 'w')
+        handle.write("drop database if exists ortho%s;\n" %userName)
 
 
 #################################################
@@ -164,8 +199,9 @@ def main():
     #userName = getpass.getuser()
     #createOrthoMclConfigFile(wd, userName, eValue, similarity)
     #createMySqlScripts(wd, userName)
+    verList = checkMySqlVersion()
     createOrthoMclConfigFile(wd, "root", eValue, similarity, opts.ip)
-    createMySqlScripts(wd, "root")
+    createMySqlScripts(wd, "root", verList)
 
     requiredMolType = "amino acids"
     if opts.nucl == True:
@@ -187,6 +223,7 @@ def main():
             sys.exit(-1)
         base.shell("orthomclAdjustFasta %s %s %s" %(myLab, myFile, myPos))
         checkUniqueIds("%s.fasta" %myLab)
+        checkIdLen("%s.fasta" %myLab)
         base.shell("mv -f %s.fasta %s" %(myLab, wdFasta))
 
     if opts.skipBlast == False:
