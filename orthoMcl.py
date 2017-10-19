@@ -11,7 +11,7 @@ formatting issues with FASTA headers to avoid failure in later stages of the run
 
 import os, sys, optparse, getpass
 from multiprocessing import Process, Pipe
-import multiprocessing
+from Utils import Base, Fasta
 
 #################################################
 def options():

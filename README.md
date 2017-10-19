@@ -44,3 +44,5 @@ You have to recreate the yml file for each run and embed the IP address of MySQL
 > sed "s/127.0.0.1/$MYSQLIP/1" orthomcl.template.yml > orthomcl.yml
 
 The script has been tested with MySQL v5.6.29 when run stand-alone and v5.7.19 when run using MySQL container and orthomcl.cwl
+IP address for MySQL server is introduced in argumens to enable the use of same code in stand-alone and CWL runs.
+Without this requirement, socket would be used in stand-alone implementation.
