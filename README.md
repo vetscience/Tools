@@ -1,6 +1,6 @@
 ## Bioinformatic tools for workflows
 This repository contains integrated tools and workflows to simplify common bioinformatic tasks.
-To ease the integration of these tools into a workflow, Common Workflow Language (CWL) scripts are given.
+To ease the integration of these tools into a workflow, Common Workflow Language (CWL) descriptions are given.
 
 ## orthoMcl.py
 The script offers a user friendly python wrapper for OrthoMCL pipeline (https://github.com/stajichlab/OrthoMCL). The script orthoMcl.py runs either stand-alone or using CWL orthomcl.cwl description found in Cwl directory. CWL description pulls pakorhon/orthomcl:1.0.0-beta docker container. The script is dependent on MySQL database and currently runs either with MySQL container mysql:5.7.19 when using CWL or server installation of 5.6.29 when executed stand-alone.
