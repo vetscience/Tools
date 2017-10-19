@@ -8,7 +8,7 @@ export RES2=`grep "Fatal" res2.txt`
 if [ "$RES2" == "### Fatal error: FASTA sequence identifiers are not unique in BXI.fasta. Exiting..." ]; then echo "2: ok"; else echo "2: nok"; fi;
 python ../orthoMcl.py -d Data -i bxinjiang.pts.fa -l BXI -p 1 -T 24 -a 128.0.0.1 -e 1e-5 -s 0.5 -m 30 > res3.txt
 export RES3=`grep "FAILED" res3.txt`
-if [ "$RES3" == "FAILED (1): mysql -h 128.0.0.1 -P 3306 --protocol tcp --user=root --password=password < Results/dropDb.sql" ]; then echo "3: ok"; else echo "3: nok"; fi;
+if [ "$RES3" == "FAILED (1): mysql -h 128.0.0.1 -P3306 --protocol tcp --user=root --password=password < Results/version.sql" ]; then echo "3: ok"; else echo "3: nok"; fi;
 python ../orthoMcl.py -d Data -i bxinjiang.pts.fa -l BXI -p 1 -T 24 -a 127.0.0.1 -e 1e-30 -s 0.5 -m 30
 export RES4=`diff Results/groups.txt groups4.txt`
 if [ "$RES4" == "" ]; then echo "4: ok"; else echo "4: nok"; fi;

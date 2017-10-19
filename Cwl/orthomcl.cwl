@@ -7,7 +7,7 @@ requirements:
 #  - class: ShellCommandRequirement
 hints:
   - class: DockerRequirement
-    dockerPull: orthomcl
+    dockerPull: pakorhon/orthomcl:v1.0.0-beta
 inputs:
   - id: directory
     type: Directory

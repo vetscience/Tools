@@ -49,9 +49,7 @@ class Base:
         '''
         try:
             os.makedirs(mydir)
-            #print "\nCreated directory %s" %mydir
         except OSError, e:
-            #print "\nDirectory %s was already existing" %mydir
             if e.errno != errno.EEXIST:
                 raise
 
@@ -103,7 +101,7 @@ class Base:
 
 
     ###########################################################################
-    def _kill_proc(self, proc, timeout):
+    def _killProc(self, proc, timeout):
         '''
         '''
         timeout["value"] = True
@@ -125,7 +123,7 @@ class Base:
                 proc = subprocess.Popen(shlex.split(cmd), stdout=self.log, stderr=subprocess.PIPE)
             if timeoutSec != None:
                 timeout = {"value": False}
-                timer = Timer(timeoutSec, self._kill_proc, [proc, timeout])
+                timer = Timer(timeoutSec, self._killProc, [proc, timeout])
                 timer.start()
             stdout, stderr = proc.communicate()
             if timeoutSec != None:

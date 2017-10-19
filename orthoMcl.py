@@ -11,28 +11,28 @@ formatting issues with FASTA headers to avoid failure in later stages of the run
 
 import os, sys, optparse, getpass
 from multiprocessing import Process, Pipe
-from Utils import Base, Fasta
+import multiprocessing
 
 #################################################
 def options():
-    parser = optparse.OptionParser('usage: %prog -i "proteins1.fa proteins2.fa ... proteinsN.fa" -l "lab1 lab2 ... labN" -p "1 3 ... 1" -e 1e-5 -s 0.6')
-    parser.add_option('-a', '--ip', dest='ip', help='MySql server IP address', metavar='IPADDRESS', default='127.0.0.1')
-    parser.add_option('-d', '--dir', dest='wd', help='Working directory', metavar='DIR', default='TmpOrthoMcl')
-    parser.add_option('-i', '--filenames', dest='filenames', help='Names of the files of species containing the proteins (separated by commas)', metavar='FILES', default='')
-    parser.add_option('-l', '--labels', dest='labs', help="Labels for each species (separated by commas)", metavar='LABELS', default='')
-    parser.add_option('-p', '--positions', dest='positions', help="Default positions of unique identifier in FASTA header separated by |. Default position is 1 for all (separate by commas).", metavar='POSITIONS', default='')
-    parser.add_option('-T', '--threads', dest='pCnt', help='Number of parallel threads (default 24)', metavar='THREADS', default='24')
-    parser.add_option('-e', '--evalue', dest='evalue', help="E-value used at blast. Default is 1e-5. Use 1e-X format only!", metavar='EVALUE', default='1e-5')
-    parser.add_option('-s', '--similarity', dest='sim', help="Required similarity (0 .. 1). Default if 0.5", metavar='SIM', default='0.5')
-    parser.add_option('-m', '--minlen', dest='minlen', help="Allowed minimum lenght of a protein. Default is 20.", metavar='MINLEN', default='20')
-    parser.add_option('-b', '--noblast', dest='skipBlast', action='store_true', help="Skip BLAST", default=False)
-    parser.add_option('-n', '--nucl', dest='nucl', action='store_true', help="Analyse nucleotides instead of proteins", default=False)
+    parser = optparse.OptionParser('example: %prog -i residues1.fa,residues2.fa,...,residuesN.fa -l LB1,LB2,...,LBN -p 1,1,...,1 -e 1e-5 -s 0.5')
+    parser.add_option('-a', '--ip', dest='ip', help='MySQL server IP address', metavar='IPADDRESS', default='127.0.0.1')
+    parser.add_option('-d', '--dir', dest='wd', help='The directory, in which the FASTA files for the analysis are copied to', metavar='DIR', default='TmpOrthoMcl')
+    parser.add_option('-i', '--filenames', dest='filenames', help='Proteome, CDS or transcript FASTA files of species (separated by commas)', metavar='FILES', default='')
+    parser.add_option('-l', '--labels', dest='labs', help="Respective labels for proteomes following the order of FASTA files (separated by commas)", metavar='LABELS', default='')
+    parser.add_option('-p', '--positions', dest='positions', help="Positions of a unique identifier in FASTA header separated by |. Default position is 1 (separated by commas).", metavar='POSITIONS', default='')
+    parser.add_option('-T', '--threads', dest='pCnt', help='Number of parallel threads (default is half or the capacity but >= 1)', metavar='THREADS', default='0')
+    parser.add_option('-e', '--evalue', dest='evalue', help="E-value for BLAST run. Default is 1e-5. Use always E-value <= 1e-5 and 1e-X format only!", metavar='EVALUE', default='1e-5')
+    parser.add_option('-s', '--similarity', dest='sim', help="Required similarity (0 .. 1) in mcl algorithm. Default if 0.5", metavar='SIM', default='0.5')
+    parser.add_option('-m', '--minlen', dest='minlen', help="Required minimum lenght of a sequence. Default is 20.", metavar='MINLEN', default='20')
+    parser.add_option('-b', '--noblast', dest='skipBlast', action='store_true', help="Skip BLAST (used to rerun mcl using different E-value and similarity settings)", default=False)
+    parser.add_option('-n', '--nucl', dest='nucl', action='store_true', help="The residues in sequences represent nucleotides instead of proteins", default=False)
     options, args = parser.parse_args()
     if options.filenames == '' or options.labs == '':
         parser.print_help()
-        print '\nE.g.: orthoMcl -i "proteome1.fa proteome2.fa" -l "Tax Tvi" -p "4 4" -e 1e-5 -s 0.5'
-        print "Results will be found in %s/Results directory in groups.txt file." %options.wd
-        print "Note! The labels must be exactly 3 characters long and preferrably start with an upper case character."
+        print '\nE.g.: orthoMcl -i proteome1.fa,proteome2.fa -l Tax,Tvi -p 4,4 -e 1e-5'
+        print "Results will be found in 'Results' directory in groups.txt file."
+        print "Note! The labels must be exactly 3 characters long."
         sys.exit(-1)
     return options
 
@@ -162,6 +162,10 @@ def main():
     '''
     '''
     opts = options() # files contains exactly two PE files
+
+    pCnt = int(opts.pCnt)
+    if pCnt == 0:
+        pCnt = int(float(multiprocessing.cpu_count()) / 2.0 + 0.5)
 
     pCnt = int(opts.pCnt)
     eValue = opts.evalue
