@@ -1,11 +1,10 @@
-############################################
+## Bioinformatic tools for workflows
 This repository contains integrated tools and workflows to simplify common bioinformatic tasks.
 To ease the integration of these tools into a workflow, Common Workflow Language (CWL) scripts are given.
 
-############################################
-# orthoMcl.py
+## orthoMcl.py
 The script offers a user friendly python wrapper for OrthoMCL pipeline (https://github.com/stajichlab/OrthoMCL). The script orthoMcl.py runs either stand-alone or using CWL orthomcl.cwl description found in Cwl directory. CWL description pulls pakorhon/orthomcl:1.0.0-beta docker container. The script is dependent on MySQL database and currently runs either with MySQL container mysql:5.7.19 when using CWL or server installation of 5.6.29 when executed stand-alone.
-
+'''
 Usage: orthoMcl.py -i residues1.fa,residues2.fa,...,residuesN.fa -l LB1,LB2,...,LBN -p 1,1,...,1 -e 1e-5 -s 0.5
 
 Options:
@@ -34,14 +33,19 @@ Options:
 E.g.: orthoMcl -i proteome1.fa,proteome2.fa -l Tax,Tvi -p 4,4 -e 1e-5
 Results will be found in 'Results' directory in groups.txt file.
 Note! The labels must be exactly 3 characters long.
+'''
 
 To run the script using CWL use:
+'''
 > cwltool orthomcl.cwl orthomcl.yml
+'''
 
 You have to recreate the yml file for each run and embed the IP address of MySQL server e.g. using the commands found in Cwl/run.sh:
+'''
 > export MYSQLIP=`docker inspect SqlDocker | grep '"IPAddress"' | head -1 | awk '{print $2}' | sed 's/"//g;s/,//1'`
 > echo $MYSQLIP
 > sed "s/127.0.0.1/$MYSQLIP/1" orthomcl.template.yml > orthomcl.yml
+'''
 
 The script has been tested with MySQL v5.6.29 when run stand-alone and v5.7.19 when run using MySQL container and orthomcl.cwl
 IP address for MySQL server is introduced in argumens to enable the use of same code in stand-alone and CWL runs.
