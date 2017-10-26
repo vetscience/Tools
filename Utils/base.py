@@ -6,7 +6,7 @@ Oct 10, 2017: Pasi Korhonen, The University of Melbourne
 Simplifies system calls, logs and pipe interaction.
 
 '''
-import sys, os, time
+import sys, os, time, ConfigParser
 import shlex, subprocess, errno
 from threading import Timer
 
@@ -138,3 +138,25 @@ class Base:
             else:
                 break
         return proc
+
+
+    ###########################################################################
+    def readSection(self, config, section, sep=None):
+        '''Reads a section from config parser and returns it a list of item rows
+        '''
+        mylist = []
+        try:
+            lines = config.options(section)
+            lines = sorted(lines)
+            for line in lines:
+                items = config.get(section, line).split()
+                if sep != None: items = config.get(section, line).split(sep)
+                try:
+                    if items[0][0] != '#': # Comment line
+                        mylist.append(items)
+                except IndexError:
+                    pass
+        except ConfigParser.NoSectionError:
+            print "Base::readSection: section '%s' not found. Exiting..." %section
+            sys.exit(1)
+        return mylist
