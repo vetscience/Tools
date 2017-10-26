@@ -46,21 +46,19 @@ class Dextractor(Base):
 
 
     #################################################
-    def pbReads(self, readDirs):
+    def pbReads(self):
         '''
         '''
         readsH5, readsFa, readsFq = set(), set(), set()
-        for readDir in readDirs:
-            #print readDir
-            for (dirpath, dirnames, filenames) in walk(readDir[0], followlinks = True):
-                #print dirpath, dirnames, filenames
-                for filename in filenames:
-                    if "bax.h5" in filename[-6:]:
-                        readsH5.add("%s/%s" %(dirpath, filename))
-                    if ".fasta" in filename[-6:]:
-                        readsFa.add("%s/%s" %(dirpath, filename))
-                    if ".fastq" in filename[-6:]:
-                        readsFq.add("%s/%s" %(dirpath, filename))
+        for (dirpath, dirnames, filenames) in walk(self.wd, followlinks = True):
+            #print dirpath, dirnames, filenames
+            for filename in filenames:
+                if "bax.h5" in filename[-6:]:
+                    readsH5.add("%s/%s" %(dirpath, filename))
+                if ".fasta" in filename[-6:]:
+                    readsFa.add("%s/%s" %(dirpath, filename))
+                if ".fastq" in filename[-6:]:
+                    readsFq.add("%s/%s" %(dirpath, filename))
         return sorted(readsH5), sorted(readsFa), sorted(readsFq)
 
 
@@ -111,8 +109,8 @@ def main():
         dextractor.setLogHandle(logHandle)
         dextractor.logTime("Start")
         # Check the existence of PacBio and Illumina reads given in config file
-        readDirs = dextractor.readSection(config, "PacBioReadDirs")
-        readsH5, readsFa, readsFq = dextractor.pbReads(readDirs)
+        #readDirs = dextractor.readSection(config, "PacBioReadDirs")
+        readsH5, readsFa, readsFq = dextractor.pbReads()
         dextractor.createFastaAndFastqReads(opts.res, readsH5, readsFa, readsFq)
         readDirs = dextractor.readSection(config, "IlluminaPeReads") # Prints a warning if section for Illumina reads is not found.
         readsIllu = dextractor.illuReads(readDirs) # Stops execution if reported reads are not found.
