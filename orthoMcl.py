@@ -21,7 +21,7 @@ def options():
     parser.add_option('-i', '--filenames', dest='filenames', help='Proteome, CDS or transcript FASTA files of species (separated by commas)', metavar='FILES', default='')
     parser.add_option('-l', '--labels', dest='labs', help="Respective labels for proteomes following the order of FASTA files (separated by commas)", metavar='LABELS', default='')
     parser.add_option('-p', '--positions', dest='positions', help="Positions of a unique identifier in FASTA header separated by |. Default position is 1 (separated by commas).", metavar='POSITIONS', default='')
-    parser.add_option('-T', '--threads', dest='pCnt', help='Number of parallel threads (default is half or the capacity but >= 1)', metavar='THREADS', default='0')
+    parser.add_option('-T', '--threads', dest='pCnt', help='Number of parallel threads (default is half of the capacity but >= 1)', metavar='THREADS', default='0')
     parser.add_option('-e', '--evalue', dest='evalue', help="E-value for BLAST run. Default is 1e-5. Use always E-value <= 1e-5 and 1e-X format only!", metavar='EVALUE', default='1e-5')
     parser.add_option('-s', '--similarity', dest='sim', help="Required similarity (0 .. 1) in mcl algorithm. Default if 0.5", metavar='SIM', default='0.5')
     parser.add_option('-m', '--minlen', dest='minlen', help="Required minimum lenght of a sequence. Default is 20.", metavar='MINLEN', default='20')
@@ -31,8 +31,8 @@ def options():
     if options.filenames == '' or options.labs == '':
         parser.print_help()
         print '\nE.g.: orthoMcl -i proteome1.fa,proteome2.fa -l Tax,Tvi -p 4,4 -e 1e-5'
-        print "Results will be found in 'Results' directory in groups.txt file."
-        print "Note! The labels must be exactly 3 characters long."
+        print "Results will be collected to 'Results' directory in groups.txt file."
+        print "Note! Labels must be exactly 3 characters long."
         sys.exit(-1)
     return options
 
@@ -166,8 +166,6 @@ def main():
     pCnt = int(opts.pCnt)
     if pCnt == 0:
         pCnt = int(float(multiprocessing.cpu_count()) / 2.0 + 0.5)
-
-    pCnt = int(opts.pCnt)
     eValue = opts.evalue
     similarity = opts.sim
     minlen = opts.minlen
