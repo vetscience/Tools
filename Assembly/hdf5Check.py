@@ -32,15 +32,6 @@ class Dextractor(Base):
         self.wd = workDir
         self.createDir(workDir)
         self.pCnt = int(pCnt)
-        self.logHandle = None
-
-
-    #################################################
-    def setLogHandle(self, handle):
-        '''
-        '''
-        self.logHandle = handle
-        self.setHandle(handle)
 
 
     #################################################
