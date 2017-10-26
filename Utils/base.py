@@ -157,6 +157,5 @@ class Base:
                 except IndexError:
                     pass
         except ConfigParser.NoSectionError:
-            print "Base::readSection: section '%s' not found. Exiting..." %section
-            sys.exit(1)
+            print "# WARNING: Base::readSection: section '%s' not found ..." %section
         return mylist

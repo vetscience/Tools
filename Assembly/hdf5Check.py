@@ -71,7 +71,7 @@ class Dextractor(Base):
         if len(readsH5) == 0:
             print >> sys.stderr, "# FATAL ERROR: cannot find PacBio reads. Exiting ..."
             sys.exit(-1)
-        if (len(readsFa) != len(readsH5) or len(readsFq) == len(readsH5)) and len(readsH5) > 0:
+        if (len(readsFa) != len(readsH5) or len(readsFq) != len(readsH5)) and len(readsH5) > 0:
             with open("%s/runs.sh" %self.wd, 'w') as handle:
                 for read in readsH5:
                     handle.write("dextract %s > %s.fasta\n" %(read, read))
@@ -115,7 +115,7 @@ def main():
         if dextractor.createFastaAndFastqReads(readsH5, readsFa, readsFq) == True:
             readsH5, readsFa, readsFq = dextractor.pbReads(readDirs)
         readDirs = dextractor.readSection(config, "IlluminaPeReads")
-        readsIllu = dextractor.illuReads(readDirs)
+        readsIllu = dextractor.illuReads(readDirs) # Prints a warning if Illumina reads are not found.
         dextractor.logTime("End")
 
 
