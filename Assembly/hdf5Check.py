@@ -99,14 +99,14 @@ def main():
     config = ConfigParser.ConfigParser()
     config.read(opts.cfile)
 
-    base.shell("rm -rf %s" %opts.res)
-    base.createDir(opts.res)
-
     pCnt = int(opts.pCnt)
     if pCnt == 0:
         pCnt = int(float(multiprocessing.cpu_count()) / 2.0 + 0.5)
 
     dextractor = Dextractor(opts.data, pCnt)
+    dextractor.shell("rm -rf %s" %opts.res)
+    dextractor.createDir(opts.res)
+
     with open(opts.res + "/log.txt", "w") as logHandle:
         dextractor.setLogHandle(logHandle)
         dextractor.logTime("Start")
