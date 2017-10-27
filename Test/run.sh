@@ -48,3 +48,21 @@ if [ "$RES14" == "### Fatal error: FASTA sequence identifiers are not unique in 
 python ../orthoMcl.py -d Data -i bxinjiang.pts.too.long.fa -l BXI -p 1 -T 24 -a 127.0.0.1 -e 1e-5 -s 0.5 -m 30 2> res15.txt
 export RES15=`grep "Fatal" res15.txt`
 if [ "$RES15" == "### Fatal error: FASTA sequence identifier BXI|bxinjiang_757_1s_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx is too long in BXI.fasta. Exiting..." ]; then echo "15: ok"; else echo "15: nok"; fi;
+
+#####################################
+
+wget http://sra-download.ncbi.nlm.nih.gov/srapub_files/SRR4427731_SRR4427731_hdf5.tgz
+mv SRR4427731_SRR4427731_hdf5.tgz Data/
+tar xvfz Data/SRR4427731_SRR4427731_hdf5.tgz -C Data/
+
+python ../Assembly/hdf5Check.py -d Data -r ResAssembl 2> res16.txt
+export RES16=`diff res16.txt expectedRes16.txt`
+if [ "$RES16" == "" ]; then echo "16: ok"; else echo "16: nok"; fi;
+python ../Assembly/hdf5Check.py -d Dat -r ResAssembl 2> res17.txt
+export RES17=`diff res17.txt expectedRes17.txt`
+if [ "$RES17" == "" ]; then echo "17: ok"; else echo "17: nok"; fi;
+mkdir Tmp
+python ../Assembly/hdf5Check.py -d Tmp -r ResAssembl 2> res18.txt
+export RES18=`diff res18.txt expectedRes18.txt`
+if [ "$RES18" == "" ]; then echo "18: ok"; else echo "18: nok"; fi;
+rmdir Tmp
