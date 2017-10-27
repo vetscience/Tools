@@ -56,7 +56,8 @@ mv SRR4427731_SRR4427731_hdf5.tgz Data/
 tar xvfz Data/SRR4427731_SRR4427731_hdf5.tgz -C Data/
 
 python ../Assembly/hdf5Check.py -d Data -r ResAssembl 2> res16.txt
-export RES16=`diff res16.txt expectedRes16.txt`
+sed 1,3d ResAssembl/log.txt | head -n 13 > ResAssembl/log16.txt
+export RES16=`diff ResAssembl/log16.txt expectedLog16.txt`
 if [ "$RES16" == "" ]; then echo "16: ok"; else echo "16: nok"; fi;
 python ../Assembly/hdf5Check.py -d Dat -r ResAssembl 2> res17.txt
 export RES17=`diff res17.txt expectedRes17.txt`
@@ -65,4 +66,11 @@ mkdir Tmp
 python ../Assembly/hdf5Check.py -d Tmp -r ResAssembl 2> res18.txt
 export RES18=`diff res18.txt expectedRes18.txt`
 if [ "$RES18" == "" ]; then echo "18: ok"; else echo "18: nok"; fi;
-rmdir Tmp
+rm -rf Tmp
+mkdir Data/Tmp
+cp Data/*.h5 Data/Tmp/
+python ../Assembly/hdf5Check.py -d Data -r ResAssembl 2> res19.txt
+sed 1,3d ResAssembl/log.txt | head -n 19 > ResAssembl/log19.txt
+export RES19=`diff ResAssembl/log19.txt expectedLog19.txt`
+if [ "$RES19" == "" ]; then echo "19: ok"; else echo "19: nok"; fi;
+rm -rf Data/Tmp
