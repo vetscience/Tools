@@ -1,38 +1,42 @@
 #!/usr/bin/env python
 
-import os, sys, random, multiprocessing
-import argparse, ConfigParser
+'''
+Oct 26, 2017: Pasi Korhonen, The University of Melbourne
+
+Uses dextract to convert all hdf5 files in given directory (and subdirectories) into
+given result directory
+
+
+'''
+
+import os, sys, random, argparse, multiprocessing
 from multiprocessing import Process
-from Utils import Base
 from os import walk
+from Utils import Base
 
 #################################################
 def args():
     parser = argparse.ArgumentParser('python %prog ')
-    parser.add_argument('-i', '--input', dest='cfile', help='Configfile', metavar='CONFIG', default='')
-    parser.add_argument('-d', '--dir', dest='data', help='Data directory', metavar='DATADIR', default='Data')
+    parser.add_argument('-d', '--dir', dest='data', help='Directory, in which PacBio data resides', metavar='DATADIR', default='Data')
     parser.add_argument('-r', '--res', dest='res', help='Result directory', metavar='RESDIR', default='Results')
     parser.add_argument('-T', '--threads', dest='pCnt', help='Number of parallel threads (default is half of the capacity but >= 1)', metavar='THREADS', default='0')
-   
-    arguments = parser.parse_args()
-    if arguments.cfile == '':
-        print '\nConfig file has to be given:'
-        parser.print_help()
-        sys.exit(1)
-    return arguments
+    return parser.parse_args()
+
 
 #################################################
 class Dextractor(Base):
     '''
     '''
     #################################################
-    def __init__(self, dataDir, pCnt):
+    def __init__(self, dataDir, resDir, pCnt):
         '''
         '''
         Base.__init__(self)
         self.wd = dataDir
-        self.createDir(dataDir)
+        self.shell("rm -rf %s" %resDir, log = False)
+        self.createDir(resDir)
         self.pCnt = int(pCnt)
+        self.setLogHandle(open("%s/log.txt" %resDir, "w"))
 
 
     #################################################
@@ -75,18 +79,11 @@ class Dextractor(Base):
                 resRead = read.split("/")[-1]
                 handle.write("dextract %s > %s/%s.fasta\n" %(read, resDir, resRead))
                 handle.write("dextract -q %s > %s/%s.fastq\n" %(read, resDir, resRead))
+                self.logger("dextract %s > %s/%s.fasta" %(read, resDir, resRead))
+                self.logger("dextract -q %s > %s/%s.fastq" %(read, resDir, resRead))
         self.shell("parallel -j %d < %s/runs.sh" %(self.pCnt, resDir))
-
-
-    #################################################
-    def illuReads(self, pairs):
-        '''
-        '''
-        reads = []
-        for pair in pairs:
-            self.checkFileExistence(pair)
-            reads.append(pair)
-        return reads
+        self.shell("cat %s/*.fastq > %s/pbReads.fastq" %(resDir, resDir))
+        self.shell("cat %s/*.fasta > %s/pbReads.fasta" %(resDir, resDir))
 
 
 #################################################
@@ -94,27 +91,18 @@ def main():
     '''
     '''
     opts = args()
-    config = ConfigParser.ConfigParser()
-    config.read(opts.cfile)
 
     pCnt = int(opts.pCnt)
     if pCnt == 0:
         pCnt = int(float(multiprocessing.cpu_count()) / 2.0 + 0.5)
 
-    dextractor = Dextractor(opts.data, pCnt)
-    dextractor.shell("rm -rf %s" %opts.res)
-    dextractor.createDir(opts.res)
-
-    with open(opts.res + "/log.txt", "w") as logHandle:
-        dextractor.setLogHandle(logHandle)
-        dextractor.logTime("Start")
-        # Check the existence of PacBio and Illumina reads given in config file
-        #readDirs = dextractor.readSection(config, "PacBioReadDirs")
-        readsH5, readsFa, readsFq = dextractor.pbReads()
-        dextractor.createFastaAndFastqReads(opts.res, readsH5, readsFa, readsFq)
-        readDirs = dextractor.readSection(config, "IlluminaPeReads") # Prints a warning if section for Illumina reads is not found.
-        readsIllu = dextractor.illuReads(readDirs) # Stops execution if reported reads are not found.
-        dextractor.logTime("End")
+    dextractor = Dextractor(opts.data, opts.res, pCnt)
+    dextractor.logTime("Start")
+    # Convert hdf5 reads to FASTA and FASTQ formats into the given result directory
+    readsH5, readsFa, readsFq = dextractor.pbReads()
+    dextractor.createFastaAndFastqReads(opts.res, readsH5, readsFa, readsFq)
+    dextractor.logTime("End")
+    dextractor.closeLogHandle()
 
 
 #################################################
