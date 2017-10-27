@@ -77,16 +77,32 @@ class Base:
 
 
     ###########################################################################
-    def setLogHandle(self, handle = subprocess.PIPE):
+    def setLogHandle(self, handle):
         ''' Log handle should be always set because a full buffer can cease processing
         '''
         self.log = handle
 
 
     ###########################################################################
-    def shell(self, myStr, doPrint = True, myStdout = False, ignoreFailure = False):
+    def closeLogHandle(self):
+        ''' Log handle should be always set because a full buffer can cease processing
+        '''
+        self.log.close()
+
+
+    ###########################################################################
+    def logger(self, myStr):
+        ''' Writes a message to the log file
+        '''
+        self.log.write("## %s\n" %myStr)
+
+
+    ###########################################################################
+    def shell(self, myStr, doPrint = True, myStdout = False, ignoreFailure = False, log = True):
         '''Runs given command in a shell and waits for the command to finish.
         '''
+        if log == True:
+            self.log.write("# %s\n" %myStr)
         if doPrint == True:
             print >> sys.stderr, "# " + myStr # is printed as comment line which is easy to remove
         if myStdout == True:
@@ -95,6 +111,7 @@ class Base:
             p = subprocess.Popen(myStr, stdout=self.log, stderr=subprocess.STDOUT, shell=True)
         retVal = p.wait()
         if retVal != 0 and ignoreFailure == False:
+            self.logger("FAILED (%d): %s" %(retVal, myStr))
             print "FAILED (%d): %s" %(retVal, myStr)
             sys.exit(retVal)
         return p
@@ -115,6 +132,7 @@ class Base:
         '''
         retryCnt = 0
         while retryCnt < 3:
+            self.log.write("# %s\n" %cmd)
             if doPrint == True:
                 print >> sys.stderr, "# " + cmd # is printed as comment line which is easy to remove
             if myStdout == True:
@@ -131,8 +149,10 @@ class Base:
             if (proc.returncode > 1 or proc.returncode < 0) and ignoreFailure == False:
                 retryCnt += 1
                 if retryCnt >= 3: # Tries three times
+                    self.logger("## FAILED(%d): %s. Three failures. Exiting ..." %(proc.returncode, cmd))
                     print >> sys.stderr, "## FAILED(%d): %s. Three failures. Exiting ..." %(proc.returncode, cmd)
                     sys.exit(proc.returncode)
+                self.logger("## FAILED(%d): %s. Retrying ..." %(proc.returncode, cmd))
                 print >> sys.stderr, "## FAILED(%d): %s. Retrying ..." %(proc.returncode, cmd)
                 time.sleep(120) # Wait 2 minutes before the next try
             else:
