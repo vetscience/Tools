@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-# Install git, python and mysql server
+# Install git, python and mysql client
 RUN apt-get update && apt-get install -y git python build-essential curl wget mysql-client libmysqlclient-dev
 # Install orthoMcl with dependencies
 WORKDIR /root
@@ -24,7 +24,7 @@ RUN apt-get remove -y build-essential curl wget
 RUN apt-get autoremove -y
 # Finally install orthoMcl wrapper and the startup script
 WORKDIR /root
-RUN git clone --recursive git://github.com/vetscience/Tools
+RUN git clone -b 'v1.0.2-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
 WORKDIR Tools
 COPY orthoMcl .
 RUN chmod uog+x /root && chmod uog+rwx /root/Tools && chmod uog+x orthoMcl
