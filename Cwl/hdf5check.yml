@@ -1,0 +1,4 @@
+directory:
+  class: Directory
+  location: Test/Data
+results: Results
