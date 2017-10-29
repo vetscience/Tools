@@ -4,11 +4,9 @@ class: CommandLineTool
 #stdout: groups.txt
 requirements:
   - class: InlineJavascriptRequirement
-#  - class: ShellCommandRequirement
 hints:
   - class: DockerRequirement
-#    dockerPull: pakorhon/orthomcl:v1.0.0-beta
-    dockerPull: hdf5check
+    dockerPull: pakorhon/hdf5check:v1.0.2-beta
 inputs:
   - id: directory
     type: Directory
