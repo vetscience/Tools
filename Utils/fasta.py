@@ -6,6 +6,7 @@ A very basic FASTA file reader.
 
 '''
 
+from __future__ import print_function
 import sys
 from base import Base
 
@@ -54,8 +55,8 @@ class Fasta(Base):
         '''
         '''
         for i in xrange(len(self.headers)):
-            print ">%s" %self.header(i)
-            print self.seq(i)
+            print(">%s" %self.header(i))
+            print(self.seq(i))
 
 
     ###########################################################################    
@@ -87,5 +88,5 @@ class Fasta(Base):
         '''
         '''
         if len(self.headers) != len(self.seqs):
-            print >> sys.stderr, "## WARNING! Fasta: header count (%d) != sequence count (%d)" %(len(self.headers), len(self.seqs))
+            print("## WARNING! Fasta: header count (%d) != sequence count (%d)" %(len(self.headers), len(self.seqs)), file=sys.stderr)
         

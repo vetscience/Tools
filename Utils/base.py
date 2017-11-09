@@ -6,7 +6,7 @@ Oct 10, 2017: Pasi Korhonen, The University of Melbourne
 Simplifies system calls, logs and pipe interaction.
 
 '''
-import sys, os, time, ConfigParser
+import sys, os, time #, ConfigParser
 import shlex, subprocess, errno
 from threading import Timer
 
@@ -49,7 +49,7 @@ class Base:
         '''
         try:
             os.makedirs(mydir)
-        except OSError, e:
+        except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
 
@@ -104,15 +104,16 @@ class Base:
         if log == True:
             self.log.write("# %s\n" %myStr)
         if doPrint == True:
-            print >> sys.stderr, "# " + myStr # is printed as comment line which is easy to remove
+            print("# " + myStr, file=sys.stderr) # is printed as comment line which is easy to remove
         if myStdout == True:
             p = subprocess.Popen(myStr, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
         else:
             p = subprocess.Popen(myStr, stdout=self.log, stderr=subprocess.STDOUT, shell=True)
         retVal = p.wait()
         if retVal != 0 and ignoreFailure == False:
-            self.logger("FAILED (%d): %s" %(retVal, myStr))
-            print "FAILED (%d): %s" %(retVal, myStr)
+            if log == True:
+                self.logger("# FAILED (%d): %s" %(retVal, myStr))
+            print("# FAILED (%d): %s" %(retVal, myStr), file = sys.stderr)
             sys.exit(retVal)
         return p
 
@@ -126,15 +127,16 @@ class Base:
 
 
     ###########################################################################
-    def run(self, cmd, timeoutSec = None, doPrint = True, myStdout = True, ignoreFailure = False):
+    def run(self, cmd, timeoutSec = None, doPrint = True, myStdout = True, ignoreFailure = False, log = True):
         ''' Runs given command in a subprocess and wait for the command to finish.
             Retries 3 times if timeout is given.
         '''
         retryCnt = 0
         while retryCnt < 3:
-            self.log.write("# %s\n" %cmd)
+            if log == True:
+                self.log.write("# %s\n" %cmd)
             if doPrint == True:
-                print >> sys.stderr, "# " + cmd # is printed as comment line which is easy to remove
+                print("# " + cmd, file = sys.stderr) # is printed as comment line which is easy to remove
             if myStdout == True:
                 proc = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             else:
@@ -150,20 +152,21 @@ class Base:
                 retryCnt += 1
                 if retryCnt >= 3: # Tries three times
                     self.logger("## FAILED(%d): %s. Three failures. Exiting ..." %(proc.returncode, cmd))
-                    print >> sys.stderr, "## FAILED(%d): %s. Three failures. Exiting ..." %(proc.returncode, cmd)
+                    print("## FAILED(%d): %s. Three failures. Exiting ..." %(proc.returncode, cmd), file = sys.stderr)
                     sys.exit(proc.returncode)
-                self.logger("## FAILED(%d): %s. Retrying ..." %(proc.returncode, cmd))
-                print >> sys.stderr, "## FAILED(%d): %s. Retrying ..." %(proc.returncode, cmd)
+                if log == True:
+                    self.logger("## FAILED(%d): %s. Retrying ..." %(proc.returncode, cmd))
+                print("## FAILED(%d): %s. Retrying ..." %(proc.returncode, cmd), file = sys.stderr)
                 time.sleep(120) # Wait 2 minutes before the next try
             else:
                 break
         return proc
 
-
+    '''
     ###########################################################################
     def readSection(self, config, section, sep=None):
-        '''Reads a section from config parser and returns it a list of item rows
-        '''
+        #''Reads a section from config parser and returns it a list of item rows
+        #''
         mylist = []
         try:
             lines = config.options(section)
@@ -177,5 +180,6 @@ class Base:
                 except IndexError:
                     pass
         except ConfigParser.NoSectionError:
-            print "# WARNING: Base::readSection: section '%s' not found ..." %section
+            print("# WARNING: Base::readSection: section '%s' not found ..." %section)
         return mylist
+    '''
