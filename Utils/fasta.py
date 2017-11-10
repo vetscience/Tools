@@ -8,10 +8,10 @@ A very basic FASTA file reader.
 
 from __future__ import print_function
 import sys
-from base import Base
+from . import base
 
 ###############################################################################
-class Fasta(Base):
+class Fasta(base.Base):
     '''
     '''
     ###########################################################################

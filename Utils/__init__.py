@@ -1,3 +1,3 @@
-from fasta import Fasta
-from base import Base
+from . import fasta
+from . import base
 

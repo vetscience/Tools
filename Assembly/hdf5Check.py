@@ -12,7 +12,7 @@ given result directory
 import os, sys, random, argparse, multiprocessing
 from multiprocessing import Process
 from os import walk
-from Utils import Base
+from Utils import base
 
 #################################################
 def args():
@@ -24,14 +24,14 @@ def args():
 
 
 #################################################
-class Dextractor(Base):
+class Dextractor(base.Base):
     '''
     '''
     #################################################
     def __init__(self, dataDir, resDir, pCnt):
         '''
         '''
-        Base.__init__(self)
+        base.Base.__init__(self)
         self.wd = dataDir
         self.shell("rm -rf %s" %resDir, log = False)
         self.createDir(resDir)

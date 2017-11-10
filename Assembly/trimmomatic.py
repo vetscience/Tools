@@ -12,7 +12,7 @@ from __future__ import print_function
 import os, sys, random, argparse, multiprocessing
 from multiprocessing import Process
 from os import walk, path
-from Utils import Base
+from Utils import base
 
 #################################################
 def args():
@@ -36,14 +36,14 @@ def args():
 
 
 #################################################
-class Trimmomatic(Base):
+class Trimmomatic(base.Base):
     '''
     '''
     #############################################
     def __init__(self):
         '''
         '''
-        Base.__init__(self)
+        base.Base.__init__(self)
         self.setLogHandle(open("log.txt", "w"))
 
 
