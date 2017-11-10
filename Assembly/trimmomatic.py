@@ -131,9 +131,9 @@ def main():
     leading, trailing = opts.leading, opts.trailing
     cropStr, headCropStr = '', ''
     if opts.crop != '':
-        cropStr = opts.crop
+        cropStr = "CROP:%s" %opts.crop
     if opts.headCrop != '':
-        headCropStr = opts.headCrop
+        headCropStr = "HEADCROP:%s" %opts.headCrop
     minLen = opts.minLen
     clipVals = opts.clip
     windowVals = opts.window
