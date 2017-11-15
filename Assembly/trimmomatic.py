@@ -148,10 +148,10 @@ def main():
     with open("runs.sh", 'w') as handle:
         for i in range(len(readsPe1)):
             fName1, fName2 = readsPe1[i], readsPe2[i]
-            fNameRes1 = "res.%s" %(fName1.split("/")[-1])
-            fNameRes2 = "res.%s" %(fName2.split("/")[-1])
-            fNameUnpaired1 = "res.unpaired.%s" %(fName1.split("/")[-1])
-            fNameUnpaired2 = "res.unpaired.%s" %(fName2.split("/")[-1])
+            fNameRes1 = "pe1.%s" %(fName1.split("/")[-1])
+            fNameRes2 = "pe2.%s" %(fName2.split("/")[-1])
+            fNameUnpaired1 = "unpe1.%s" %(fName1.split("/")[-1])
+            fNameUnpaired2 = "unpe2.%s" %(fName2.split("/")[-1])
             #fNameRes1 = "%s/res.%s" %('/'.join(fName1.split("/")[:-1]), fName1.split("/")[-1])
             #fNameRes2 = "%s/res.%s" %('/'.join(fName2.split("/")[:-1]), fName2.split("/")[-1])
             #fNameUnpaired1 = "%s/res.unpaired.%s" %('/'.join(fName1.split("/")[:-1]), fName1.split("/")[-1])
@@ -159,7 +159,7 @@ def main():
             handle.write("trimmomatic PE -phred%s -threads %s %s %s %s %s %s %s ILLUMINACLIP:%s:%s LEADING:%s TRAILING:%s SLIDINGWINDOW:%s MINLEN:%s %s %s -trimlog %s\n" %(phredPe[i], threadCnt, fName1, fName2, fNameRes1, fNameRes2, fNameUnpaired1, fNameUnpaired2, adapterFile, clipVals, leading, trailing, windowVals, minLen, cropStr, headCropStr, logFile))
         for i in range(len(readsSe)):
             fName = readsSe[i]
-            fNameUnpaired = "res.unpaired.%s" %(fName.split("/")[-1])
+            fNameUnpaired = "se.%s" %(fName.split("/")[-1])
             #fNameUnpaired = "%s/res.unpaired.%s" %('/'.join(fName.split("/")[:-1]), fName.split("/")[-1])
             handle.write("trimmomatic SE -phred%s -threads %s %s %s ILLUMINACLIP:%s:%s LEADING:%s TRAILING:%s SLIDINGWINDOW:%s MINLEN:%s %s %s -trimlog %s\n" %(phredSe[i], threadCnt, fName, fNameUnpaired, adapterFile, clipVals, leading, trailing, windowVals, minLen, cropStr, headCropStr, logFile))
 
