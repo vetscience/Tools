@@ -156,7 +156,7 @@ def main():
             #fNameRes2 = "%s/res.%s" %('/'.join(fName2.split("/")[:-1]), fName2.split("/")[-1])
             #fNameUnpaired1 = "%s/res.unpaired.%s" %('/'.join(fName1.split("/")[:-1]), fName1.split("/")[-1])
             #fNameUnpaired2 = "%s/res.unpaired.%s" %('/'.join(fName2.split("/")[:-1]), fName2.split("/")[-1])
-            handle.write("trimmomatic PE -phred%s -threads %s %s %s %s %s %s %s ILLUMINACLIP:%s:%s LEADING:%s TRAILING:%s SLIDINGWINDOW:%s MINLEN:%s %s %s -trimlog %s\n" %(phredPe[i], threadCnt, fName1, fName2, fNameRes1, fNameRes2, fNameUnpaired1, fNameUnpaired2, adapterFile, clipVals, leading, trailing, windowVals, minLen, cropStr, headCropStr, logFile))
+            handle.write("trimmomatic PE -phred%s -threads %s %s %s %s %s %s %s ILLUMINACLIP:%s:%s LEADING:%s TRAILING:%s SLIDINGWINDOW:%s MINLEN:%s %s %s -trimlog %s\n" %(phredPe[i], threadCnt, fName1, fName2, fNameRes1, fNameUnpaired1, fNameRes2, fNameUnpaired2, adapterFile, clipVals, leading, trailing, windowVals, minLen, cropStr, headCropStr, logFile))
         for i in range(len(readsSe)):
             fName = readsSe[i]
             fNameUnpaired = "se.%s" %(fName.split("/")[-1])
