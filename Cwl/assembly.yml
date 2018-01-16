@@ -1,0 +1,10 @@
+directory:
+  class: Directory
+  location: Data/A01_1
+results: Results
+prefix: tsp
+workDir:
+  class: Directory
+  location: TestAssembly
+genomeSize: 60m
+

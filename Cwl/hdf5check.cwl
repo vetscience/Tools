@@ -26,9 +26,7 @@ inputs:
       prefix: -r
       position: 3
 outputs:
-  - id: fastaAndfastqFiles
-    type:
-      type: array
-      items: [File, Directory]
+  - id: fastaAndFastqFiles
+    type: File
     outputBinding:
-      glob: "*"
+      glob: "*/pbReads.fastq"
