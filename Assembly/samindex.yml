@@ -1,0 +1,3 @@
+inputBamFile:
+  class: File
+  path: bowtie2.sorted.bam

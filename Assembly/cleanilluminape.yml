@@ -1,0 +1,36 @@
+readsPe1:
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231918_1.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231919_1.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231920_1.fastq.gz
+readsPe2:
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231918_2.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231919_2.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231920_2.fastq.gz
+phredsPe: ['33','33','33']
+#readsSe: ''
+#phredsSe: ''
+adapters:
+  class: File
+  format: edam:format_1929  # fasta
+  path: Ecoli/illuminaClipping.fa
+leading: 25
+trailing: 25
+#crop: 0
+#headcrop: 0
+minlen: 40
+clip: 2:30:10
+window: 4:25
+threads: 12
+log: trim.log

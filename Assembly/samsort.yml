@@ -1,0 +1,5 @@
+threads: 12
+#outputBamFile: bowtie2.sorted.bam
+inputSamFile:
+  class: File
+  path: bowtie2.sam

@@ -1,0 +1,16 @@
+#java_opts: "-Xms8g -Xmx32g"
+currentDir: /home/pakorhon/Images
+reference:
+  class: File
+  path: ecoli.contigs.quivered.fasta
+bamPe:
+  class: File
+  path: bowtie2.sorted.bam
+#bamPeIdx:
+#  class: File
+#  path: bowtie2.sorted.bam.bai
+output: pilon.ecoli.contigs.quivered
+diploidOrganism: --diploid
+fix: bases
+modifications: --changes
+threads: 12

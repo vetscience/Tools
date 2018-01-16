@@ -1,0 +1,7 @@
+trimmedReads:
+  class: File
+  location: rn_ecoli.trimmedReads.fasta.gz
+classificationFile:
+  class: File
+  location: classification.txt
+taxons: [2,10239,4751,40674,81077]

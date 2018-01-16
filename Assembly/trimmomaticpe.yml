@@ -1,0 +1,34 @@
+#java_opts: "-Xms8g -Xmx32g"
+currentDir: /home/pakorhon/Images
+phred: '33'
+threads: 12
+slidingWindow:
+    windowSize: 4
+    requiredQuality: 25
+illuminaClip:
+    adapters:
+        class: File
+        path: Ecoli/illuminaClipping.fa
+    seedMismatches: 2
+    palindromeClipThreshold: 30
+    simpleClipThreshold: 10
+    minAdapterLength: 20
+    keepBothReads: true
+reads1:
+    class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231920_1.fastq.gz
+reads2:
+    class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231920_2.fastq.gz
+leading: 25
+trailing: 25
+minlen: 40
+headcrop: 0
+avgqual: 25
+#crop: 150
+#maxinfo:
+#    targetLength: 150
+#    strictness: 1
+#end_mode: PE

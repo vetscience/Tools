@@ -1,0 +1,28 @@
+seedMismatches: '1'
+phred: '33'
+orientation: fr
+threads: 12
+maxFragmentLen: 500
+reference:
+  class: File
+  path: ecoli.contigs.quivered.fasta 
+reads1:
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231918_1.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231919_1.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231920_1.fastq.gz
+reads2:
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231918_2.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231919_2.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231920_2.fastq.gz

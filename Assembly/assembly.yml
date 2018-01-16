@@ -1,0 +1,93 @@
+dataDir:
+  class: Directory
+  location: TestEcoliData
+assemblyDir: TestAssembly
+currentDir: /home/pakorhon/Images
+prefix: ecoli
+fofn: baxFiles.fofn
+results: Results
+genomeSize: 60m
+readsPe1:
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231918_1.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231919_1.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231920_1.fastq.gz
+readsPe2:
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231918_2.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231919_2.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: Ecoli/SRR6231920_2.fastq.gz
+phredsPe: ['33','33','33']
+slidingWindow:
+    windowSize: 4
+    requiredQuality: 25
+illuminaClip:
+    adapters:
+        class: File
+        path: Ecoli/illuminaClipping.fa
+    seedMismatches: 2
+    palindromeClipThreshold: 30
+    simpleClipThreshold: 10
+    minAdapterLength: 20
+    keepBothReads: true
+leading: 25
+trailing: 25
+#crop: 0
+#headcrop: 0
+minlen: 40
+clip: 2:30:10
+window: 4:25
+threads: 32
+trimmoLog: trim.log
+
+trimmedReadsPe1:
+  - class: File
+    format: edam:format_1930  # fastq
+    path: res.SRR6231918_1.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: res.SRR6231919_1.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: res.SRR6231920_1.fastq.gz
+trimmedReadsPe2:
+  - class: File
+    format: edam:format_1930  # fastq
+    path: res.SRR6231918_2.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: res.SRR6231919_2.fastq.gz
+  - class: File
+    format: edam:format_1930  # fastq
+    path: res.SRR6231920_2.fastq.gz
+
+#sortedBamFile: bowtie2.sorted.bam
+
+maxFragmentLens: [500, 500, 500]
+
+phred: '33'
+orientation: 'fr'
+maxFragmentLen: 500
+#quiverPolishedAssembly:
+#  class: File
+#  format: edam:format_1929  # FASTA
+#  path: ecoli.contigs.quivered.fasta
+polishedAssembly: pilon
+diploidOrganism: --diploid
+fix: bases
+modifications: --changes
+
+database: /home/pakorhon/Images/Decon/nt
+# Bacteria, viruses, fungi, mammals, artificial seqs
+#taxons: [2,10239,4751,40674,81077]
+taxons: [10239,4751,40674,81077]

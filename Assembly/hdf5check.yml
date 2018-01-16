@@ -1,0 +1,4 @@
+directory:
+  class: Directory
+  location: TestEcoliData
+results: Results

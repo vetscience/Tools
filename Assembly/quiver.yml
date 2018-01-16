@@ -1,0 +1,9 @@
+dataDir:
+  class: Directory
+  path: TestEcoliData
+assemblyDir: TestEcoliAssembly
+assembly:
+  class: File
+  path: TestEcoliAssembly/ecoli.contigs.fasta
+prefix: ecoli
+fofn: baxFiles.fofn

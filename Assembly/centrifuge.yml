@@ -1,0 +1,8 @@
+database: /home/pakorhon/Images/Decon/nt
+minHitLen: 22
+trimmedReads:
+  class: File
+  location: ecoli.trimmedReads.fasta
+threads: 24
+reportFile: report.txt
+classificationFile: classification.txt

@@ -1,0 +1,3 @@
+trimmedReads:
+  class: File
+  location: ecoli.trimmedReads.fasta.gz
