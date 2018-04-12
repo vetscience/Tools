@@ -74,7 +74,7 @@ WORKDIR /root
 RUN wget http://www.repeatmasker.org/libraries/RepeatMaskerMetaData-20170127.tar.gz
 RUN tar zxf RepeatMaskerMetaData-20170127.tar.gz
 
-RUN cp Tools/Cwl/repeatmodeler/initReps.sh . && cp Tools/Cwl/repeatmasker/repeatModeler.sh .
+RUN cp Tools/Cwl/repeatmodeler/initReps.sh . && cp Tools/Cwl/repeatmodeler/repeatModeler.sh .
 RUN chmod uog+x initReps.sh && chmod uog+x repeatModeler.sh
 RUN cp Tools/Cwl/repeatmodeler/inputRepeatMasker .
 
@@ -84,16 +84,16 @@ RUN cp Tools/Cwl/repeatmodeler/inputRepeatModeler .
 WORKDIR /usr/local
 RUN tar zxf RepeatModeler-open-1.0.11.tar.gz && mv RepeatModeler-open-1.0.11 RepeatModeler
 WORKDIR RepeatModeler
-RUN cp Tools/Cwl/repeatmodeler/inputJson .
+RUN cp /root/Tools/Cwl/repeatmodeler/inputJson .
 RUN perl -MCPAN -e 'install JSON' < inputJson
 RUN cpan install LWP::UserAgent
-RUN cp Tools/Cwl/repeatmodeler/RepeatModelerConf/BuildDatabase .
-RUN cp Tools/Cwl/repeatmodeler/RepeatModelerConf/Refiner .
-RUN cp Tools/Cwl/repeatmodeler/RepeatModelerConf/RepeatClassifier .
-RUN cp Tools/Cwl/repeatmodeler/RepeatModelerConf/RepeatModeler .
-RUN cp Tools/Cwl/repeatmodeler/RepeatModelerConf/RepModelConfig.pm .
-RUN cp Tools/Cwl/repeatmodeler/RepeatModelerConf/TRFMask . 
-RUN cp -r Tools/Cwl/repeatmodeler/RepeatModelerConf/util .
+RUN cp /root/Tools/Cwl/repeatmodeler/RepeatModelerConf/BuildDatabase .
+RUN cp /root/Tools/Cwl/repeatmodeler/RepeatModelerConf/Refiner .
+RUN cp /root/Tools/Cwl/repeatmodeler/RepeatModelerConf/RepeatClassifier .
+RUN cp /root/Tools/Cwl/repeatmodeler/RepeatModelerConf/RepeatModeler .
+RUN cp /root/Tools/Cwl/repeatmodeler/RepeatModelerConf/RepModelConfig.pm .
+RUN cp /root/Tools/Cwl/repeatmodeler/RepeatModelerConf/TRFMask . 
+RUN cp -r /root/Tools/Cwl/repeatmodeler/RepeatModelerConf/util .
 
 WORKDIR /root
 ENV PATH=/usr/local/RepeatMasker:/usr/local/RepeatModeler:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
