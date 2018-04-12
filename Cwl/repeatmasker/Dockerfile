@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-RUN apt-get update && apt-get install -y wget perl build-essential cpio less
+RUN apt-get update && apt-get install -y wget perl build-essential cpio less git
 WORKDIR /root
 RUN wget http://www.repeatmasker.org/RepeatModeler/RepeatModeler-open-1.0.11.tar.gz
 RUN wget http://www.repeatmasker.org/RepeatMasker-open-4-0-7.tar.gz
@@ -53,7 +53,7 @@ RUN chmod uog+x /usr/local/bin/trf
 
 # Install RepeatMasker
 WORKDIR /root
-RUN git clone -b 'v1.0.3-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
+RUN git clone -b 'v1.0.4-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
 RUN mv RepeatMasker-open-4-0-7.tar.gz /usr/local
 WORKDIR /usr/local
 RUN tar zxf RepeatMasker-open-4-0-7.tar.gz && rm -rf RepeatMasker-open-4-0-7.tar.gz

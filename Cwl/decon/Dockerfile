@@ -1,16 +1,11 @@
 FROM ubuntu:16.04
-RUN apt-get update && apt-get install -y python perl
+RUN apt-get update && apt-get install -y python perl wget git
 WORKDIR /root
-COPY decon.sh .
-COPY convertFasta.py .
-COPY fasta.py .
-COPY base.py .
-COPY names.dmp.gz .
-COPY nodes.dmp.gz .
-COPY taxtreelabel.pl .
-RUN gunzip names.dmp.gz
-RUN gunzip nodes.dmp.gz
-RUN chmod uog+x decon.sh
-RUN chmod uog+x /root
-#ENV PATH=/root/centrifuge-1.0.3-beta:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+RUN git clone -b 'v1.0.4-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
+RUN cp Tools/Cwl/decon/decon.sh . && cp Tools/Cwl/decon/taxtreelabel.pl .
+RUN cp Tools/Cwl/decon/mapFasta.py . && cp Tools/Cwl/decon/fasta.py . && cp Tools/Cwl/decon/base.py .
+RUN wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
+RUN tar xvfz taxdump.tar.gz
+RUN gzip names.dmp && gzip nodes.dmp
+RUN chmod uog+x decon.sh && chmod uog+x /root
 ENTRYPOINT ["/root/decon.sh"]

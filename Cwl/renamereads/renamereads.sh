@@ -28,4 +28,5 @@ if [[ -n $1 ]]; then
 fi
 
 # First rename the trimmed reads to enable unique identification
-zcat $TRIMMEDREADS | awk '{print $1""$4}' | sed 's/id=/_read_/1' | gzip > $(echo $TRIMMEDREADS | awk -F"/" '{print "rn_"$NF}')
+#zcat $TRIMMEDREADS | awk '{print $1""$4}' | sed 's/id=/_read_/1' | gzip > $(echo $TRIMMEDREADS | awk -F"/" '{print "rn_"$NF}')
+zcat $TRIMMEDREADS | python /root/renameFasta.py -i - -m mapped.ids | gzip > $(echo $TRIMMEDREADS | awk -F"/" '{print "rn_"$NF}')
