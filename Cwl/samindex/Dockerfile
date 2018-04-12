@@ -7,8 +7,7 @@ ENV PATH=/root/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:
 RUN conda config --add channels defaults
 RUN conda config --add channels conda-forge
 RUN conda config --add channels bioconda
-RUN conda install samtools=1.6
-WORKDIR /root
+RUN conda install samtools==1.6
 WORKDIR /root
 RUN git clone -b 'v1.0.4-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
 RUN cp Tools/Cwl/samindex/samIndex.sh .
