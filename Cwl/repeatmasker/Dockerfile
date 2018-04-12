@@ -19,7 +19,7 @@ RUN patch -p1 < /root/isb-2.6.0+-changes-vers2.patch
 WORKDIR c++
 RUN ./configure --with-mt --prefix=/usr/local/rmblast --without-debug
 RUN sed '54,55d' Makefile > Makefile.new && mv Makefile.new Makefile
-RUN make -j 24 && make install
+RUN make && make install
 
 # Install HMMER
 WORKDIR /root
