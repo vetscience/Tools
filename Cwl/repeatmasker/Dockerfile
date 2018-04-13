@@ -60,9 +60,9 @@ RUN chmod uog+x /usr/local/bin/trf
 # Install RepeatMasker
 WORKDIR /root
 RUN git clone -b 'v1.0.4-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
+RUN wget http://www.repeatmasker.org/RepeatMasker-open-4-0-7.tar.gz
 RUN mv RepeatMasker-open-4-0-7.tar.gz /usr/local
 WORKDIR /usr/local
-RUN wget http://www.repeatmasker.org/RepeatMasker-open-4-0-7.tar.gz
 RUN tar zxf RepeatMasker-open-4-0-7.tar.gz && rm -rf RepeatMasker-open-4-0-7.tar.gz
 WORKDIR RepeatMasker
 RUN wget http://www.dfam.org/web_download/Release/Dfam_2.0/Dfam.hmm.gz
