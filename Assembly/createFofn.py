@@ -12,7 +12,6 @@ given result directory
 import os, sys, random, argparse, multiprocessing
 from multiprocessing import Process
 from os import walk
-from Utils import Base
 
 #################################################
 def args():
@@ -23,14 +22,13 @@ def args():
 
 
 #################################################
-class Fofn(Base):
+class Fofn:
     '''
     '''
     #################################################
     def __init__(self, dataDir):
         '''
         '''
-        Base.__init__(self)
         self.wd = dataDir
 
 
