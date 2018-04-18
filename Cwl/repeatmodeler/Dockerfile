@@ -19,7 +19,7 @@ RUN patch -p1 < /root/isb-2.6.0+-changes-vers2.patch
 WORKDIR c++
 RUN ./configure --with-mt --prefix=/usr/local/rmblast --without-debug
 RUN sed '54,55d' Makefile > Makefile.new && mv Makefile.new Makefile
-RUN make && make install
+RUN make -j 12 && make install
 
 # Install HMMER
 WORKDIR /root
@@ -53,7 +53,8 @@ RUN chmod uog+x /usr/local/bin/trf
 
 # Install RepeatMasker
 WORKDIR /root
-RUN git clone -b 'v1.0.4-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
+RUN git clone --recursive git://github.com/vetscience/Tools
+#RUN git clone -b 'v1.0.4-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
 RUN mv RepeatMasker-open-4-0-7.tar.gz /usr/local
 WORKDIR /usr/local
 RUN tar zxf RepeatMasker-open-4-0-7.tar.gz && rm -rf RepeatMasker-open-4-0-7.tar.gz
@@ -66,8 +67,8 @@ RUN cp /root/Tools/Cwl/repeatmodeler/RepeatMaskerConf/RepeatMasker .
 RUN cp /root/Tools/Cwl/repeatmodeler/RepeatMaskerConf/RepeatMaskerConfig.pm .
 RUN cp /root/Tools/Cwl/repeatmodeler/RepeatMaskerConf/RepeatProteinMask .
 RUN cp -r /root/Tools/Cwl/repeatmodeler/RepeatMaskerConf/util .
-RUN cp /root/Tools/Cwl/repeatmodeler/inputSoundex .
-RUN perl -MCPAN -e 'install Text::Soundex' < inputSoundex
+#RUN cp /root/Tools/Cwl/repeatmodeler/inputSoundex .
+#RUN perl -MCPAN -e 'install Text::Soundex' < inputSoundex
 
 # Configuration is done everytime the RepeatMasker or RepeatModeler is started
 WORKDIR /root
