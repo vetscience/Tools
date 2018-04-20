@@ -54,6 +54,7 @@ RUN chmod uog+x /usr/local/bin/trf
 # Install RepeatMasker
 WORKDIR /root
 WORKDIR /root
+WORKDIR /root
 RUN git clone --recursive git://github.com/vetscience/Tools
 #RUN git clone -b 'v1.0.4-beta' --single-branch --depth 1 https://github.com/vetscience/Tools
 RUN mv RepeatMasker-open-4-0-7.tar.gz /usr/local
@@ -61,7 +62,7 @@ WORKDIR /usr/local
 RUN tar zxf RepeatMasker-open-4-0-7.tar.gz && rm -rf RepeatMasker-open-4-0-7.tar.gz
 WORKDIR RepeatMasker
 #RUN zcat /root/Dfam.hmm.gz > Libraries/Dfam.hmm && mv Libraries /root && ln -s /var/spool/cwl/Libraries .
-RUN zcat /root/Dfam.hmm.gz > Libraries/Dfam.hmm && mv Libraries /root && ln -s /var/spool/cwl Libraries
+RUN zcat /root/Dfam.hmm.gz > Libraries/Dfam.hmm && mv Libraries /root && ln -s /root/Libraries
 RUN cp /root/Tools/Cwl/repeatmodeler/RepeatMaskerConf/DateRepeats .
 RUN cp /root/Tools/Cwl/repeatmodeler/RepeatMaskerConf/DupMasker .
 RUN cp /root/Tools/Cwl/repeatmodeler/RepeatMaskerConf/ProcessRepeats .
